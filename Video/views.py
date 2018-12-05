@@ -6,3 +6,8 @@ from django.shortcuts import render
 def Test_VideoMain(request):
 
     return render(request, 'TestVideoMain.html')
+
+# /Video/list/
+def VideoList(request):
+
+    return render(request, 'VideoList.html')
