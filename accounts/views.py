@@ -4,7 +4,7 @@ from Main import urls
 from .models import *
 from .forms import UserForm, LoginForm
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.template import RequestContext
 
 
@@ -46,6 +46,7 @@ def signin(request):
         # 로그인 성공
         if user is not None:
             login(request, user)
+            request.session['userId'] = username
             redirect_to = reverse('Main')
             return HttpResponseRedirect(redirect_to)
 
@@ -57,3 +58,15 @@ def signin(request):
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
+
+# 로그아웃 view
+def signout(request):
+
+    try:
+        del request.session['userId']
+        logout(request)
+
+    except KeyError:
+        pass
+
+    return HttpResponse("You're logged out.")
