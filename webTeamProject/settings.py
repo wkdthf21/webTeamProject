@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'sugang',
     'Vocabulary',
     'word',
+    'wordTest',
 ]
 
 MIDDLEWARE = [
