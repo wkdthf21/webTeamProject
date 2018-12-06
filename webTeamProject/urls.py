@@ -26,4 +26,5 @@ urlpatterns = [
     #path('Video/', include('Video.urls')),
     #path('Vocabulary/', include('Vocabulary.urls')),
     #path('word/', include('word.urls')),
+    path('wordTest/', include('wordTest.urls')),
 ]
