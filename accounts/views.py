@@ -65,6 +65,7 @@ def signout(request):
     try:
         del request.session['userId']
         logout(request)
+        return redirect('../login/')
 
     except KeyError:
         pass
