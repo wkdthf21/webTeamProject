@@ -2,6 +2,9 @@
 */migrations/00*
 */migrations/__py*
 
+## pycache files ##
+*/__pycache**
+
 # swap files ##
 *.swp
 *.swo
