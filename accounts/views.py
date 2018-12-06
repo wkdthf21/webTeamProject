@@ -38,26 +38,35 @@ def signin(request):
 
     if request.method == "POST":
 
-        form = LoginForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username = username, password = password)
+        mode = request.POST['Sign']
 
-        # 로그인 성공
-        if user is not None:
-            login(request, user)
-            request.session['userId'] = username
-            redirect_to = reverse('Main')
+        if mode == '로그인':
+
+            form = LoginForm(request.POST)
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username = username, password = password)
+
+            # 로그인 성공
+            if user is not None:
+                login(request, user)
+                request.session['userId'] = username
+                userId = request.session['userId']
+                redirect_to = reverse('Main')
+                return HttpResponseRedirect(redirect_to)
+
+            # 로그인 실패
+            else:
+                return HttpResponse('로그인 실패!')
+
+        elif mode == '회원가입':
+            redirect_to = reverse('Join')
             return HttpResponseRedirect(redirect_to)
-
-        # 로그인 실패
-        else:
-            return HttpResponse('로그인 실패!')
 
     # 로그인 teamplate
     else:
         form = LoginForm()
-        return render(request, 'login.html', {'form': form})
+        return render(request, 'login.html', {'form': form })
 
 # 로그아웃 view
 def signout(request):
