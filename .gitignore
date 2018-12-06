@@ -1,0 +1,8 @@
+## migration files ##
+*/migrations/00*
+*/migrations/__py*
+*/__pycache__/*
+
+# swap files ##
+*.swp
+*.swo
