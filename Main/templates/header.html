@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Join Page</title>
+    <title></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -10,18 +10,34 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
   <body>
+    <form method="post" action="">
+      {% csrf_token %}
     <!-- header -->
     <div class = "container Header">
       <div class = "row">
-        title
+        <div class = "col-1">
+          Logo
+        </div>
+        <div class = "col-7">
+        </div>
+        <div class = "col-4">
+          {% if userId %}
+          {{ userId }} 님 환영합니다!
+          <button type="submit" name="Sign" class = "btn btn-outline-secondary" value="로그아웃">Logout</button>
+          {% else %}
+          로그인이 필요합니다.
+          {% endif %}
+        </div>
       </div>
     </div>
+    <br/>
     <!-- menubar -->
     <div class = "container Menubar">
       <div class = "row">
         menubar
       </div>
     </div>
+    </form>
     {% block content %}{% endblock %}
   </body>
 </html>
