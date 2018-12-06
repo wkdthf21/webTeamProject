@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 
 # Create your views here.
 
@@ -10,4 +10,12 @@ def Test_VideoMain(request):
 # /Video/list/
 def VideoList(request):
 
-    return render(request, 'VideoList.html')
+    # 로그인 했을 경우
+    if 'userId' in request.session :
+        userId = request.session['userId']
+        return render(request, 'VideoList.html', {'userId' : userId})
+
+    # 로그인 안했을 경우
+    else:
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
