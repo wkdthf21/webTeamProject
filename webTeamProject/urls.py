@@ -22,7 +22,7 @@ urlpatterns = [
     #path('classroom/', include('classroom.urls')),
     #path('Main/', include('Main.urls')),
     #path('News/', include('News.urls')),
-    #path('sugang/', include('sugang.urls')),
+    path('sugang/', include('sugang.urls')),
     #path('Video/', include('Video.urls')),
     #path('Vocabulary/', include('Vocabulary.urls')),
     #path('word/', include('word.urls')),
