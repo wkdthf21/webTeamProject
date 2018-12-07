@@ -4,7 +4,7 @@ from django.utils import timezone
 # Create your models here.
 
 class Test(models.Model):
-    test_id = models.IntegerField()
+    test_id = models.AutoField(primary_key=True)
     test_date = models.DateTimeField(default=timezone.now)
 #    u_id = models.ForeignKey('account.user', on_delete=models.CASCADE)
     u_id = models.IntegerField()
