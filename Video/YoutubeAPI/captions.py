@@ -25,7 +25,7 @@ from oauth2client.tools import argparser, run_flow
 #   https://developers.google.com/youtube/v3/guides/authentication
 # For more information about the client_secrets.json file format, see:
 #   https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
-CLIENT_SECRETS_FILE = "client_secrets.json"
+CLIENT_SECRETS_FILE = "\client_secrets.json"
 
 # This OAuth 2.0 access scope allows for full read/write access to the
 # authenticated user's account and requires requests to use an SSL connection.
@@ -63,6 +63,7 @@ def get_authenticated_service(args):
   with open("youtube-v3-api-captions.json", "rt", encoding='UTF8') as f:
     doc = f.read()
     return build_from_document(doc, http=credentials.authorize(httplib2.Http()))
+
 
 
 # Call the API's captions.list method to list the existing caption tracks.
