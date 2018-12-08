@@ -1,0 +1,41 @@
+{% extends 'header.html' %}
+{% block content %}
+    <br/>
+    <!-- Sign up -->
+    <form method="post" action="">
+    <div class = "container VideoBody">
+      <!-- 로그인  -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-2">
+        </div>
+        <div class = "col-10">
+          <h3>로그인</h3>
+          <br/>
+              {% csrf_token %}
+              {{ form.as_p }}
+        </div>
+      </div>
+      <!-- 로그인 버튼 -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-2">
+        </div>
+        <div class = "col-1">
+            <button type="submit" name="Sign" class = "btn btn-outline-secondary" value="로그인">Sign in</button>
+        </div>
+        </form>
+        <div class = "col-1">
+            <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" name="Sign" class = "btn btn-outline-secondary" value="회원가입">Sign up</button>
+            </form>
+        </div>
+        <div class = "col-8">
+        </div>
+      </div>
+      <br/>
+      <br/>
+    </div>
+  </body>
+</html>
+
+{% endblock %}
