@@ -172,6 +172,12 @@ def Test_VideoMain(request):
 
     return render(request, 'TestVideoMain.html')
 
+# 비디오 메인 화면
+# Video/main/video_id
+def VideoMain(request, video_id):
+
+    return render(request, 'VideoMain.html')
+
 
 # 비디오 추가 페이지
 # /Video/add

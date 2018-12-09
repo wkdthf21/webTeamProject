@@ -37,7 +37,7 @@
               {% for record in recordList %}
               <tr>
                 <th scope="row">{{ record.0 }}</th>
-                <td><a href="#" class="text-dark">{{ record.1.video_name }}<a></td>
+                <td><a href="/Video/main/{{record.1.video_id}}" class="text-dark">{{ record.1.video_name }}</a></td>
                 <td>{{ record.1.video_update_date }}</td>
               </tr>
               {% endfor %}
@@ -53,7 +53,7 @@
         <div class = "col-9">
         </div>
         <div class = "col-1">
-          <button type="button" class="btn btn-outline-secondary"><a href="/Video/add">Add Video</button>
+          <button type="button" class="btn btn-outline-secondary"><a href="/Video/add">Add Video</a></button>
         </div>
         <div class = "col-2">
         </div>
