@@ -10,3 +10,8 @@ class video(models.Model):
     video_url = models.CharField(max_length = 200)
     video_update_date =  models.DateTimeField(auto_now = True)
     u_id =  models.ForeignKey(User, on_delete=models.CASCADE)
+
+class caption(models.Model):
+
+    video_id = models.ForeignKey('video', on_delete=models.CASCADE)
+    text = models.TextField(blank=True)
