@@ -242,8 +242,22 @@ def VideoList(request):
 
     # 로그인 했을 경우
     if 'userId' in request.session :
+
         userId = request.session['userId']
-        return render(request, 'VideoList.html', {'userId' : userId})
+
+        # 최신순으로 정렬
+        videoRecordList = video.objects.all().order_by('-video_update_date')
+        index = 1
+        recordList = []
+
+        for v in videoRecordList:
+
+            recordList.append([index, v])
+            index = index + 1
+
+
+        return render(request, 'VideoList.html', {'userId' : userId, 'recordList' : recordList})
+
 
     # 로그인 안했을 경우
     else:

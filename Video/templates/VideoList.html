@@ -34,21 +34,13 @@
               </tr>
             </thead>
             <tbody>
+              {% for record in recordList %}
               <tr>
-                <th scope="row">1</th>
-                <td><a href="#" class="text-dark">Mark<a></td>
-                <td>Otto</td>
+                <th scope="row">{{ record.0 }}</th>
+                <td><a href="#" class="text-dark">{{ record.1.video_name }}<a></td>
+                <td>{{ record.1.video_update_date }}</td>
               </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td><a href="#" class="text-dark">Jacob<a></td>
-                <td>Thornton</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td><a href="#" class="text-dark">Mickey<a></td>
-                <td>Canada</td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
