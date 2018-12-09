@@ -1,4 +1,6 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
+from .models import *
+from django.contrib.auth.models import User
 
 ###################      youtube           #######################
 # -*- coding: utf-8 -*-
@@ -175,7 +177,63 @@ def Test_VideoMain(request):
 # /Video/add
 def addVideo(request):
 
-    return render(request, 'addVideo.html')
+    # 로그인 했을 경우
+    if 'userId' in request.session :
+
+        userId = request.session['userId']
+
+        # 강사인지 확인하는 법 고민 ( 수정 )
+
+        return render(request, 'addVideo.html', {'userId' : userId})
+
+
+    # 로그인 안했을 경우
+    else:
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
+
+
+# 비디오 저장 클릭시 실행
+# /Video/process_addVideo
+def process_addVideo(request):
+
+    # 로그인 안했을 경우
+    if not 'userId' in request.session :
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
+
+    # 로그인 했을 경우
+
+    userId = request.session['userId']
+
+    if request.method == 'POST':
+
+        mode = request.POST['addVideo']
+
+        # 저장을 누른 경우
+        if mode == "save" :
+
+            Title = request.POST['Title']
+            URL = request.POST['URL']
+            Caption = request.POST['Caption']
+
+            publisher = User.objects.get(username=userId)
+
+            videoRecord = video(video_name=Title, video_url=URL, u_id=publisher)
+            videoRecord.save()
+            videoRecord = video.objects.filter().latest('video_id')
+
+            captionRecord = caption(video_id=videoRecord, text=Caption)
+            captionRecord.save()
+
+            redirect_to = reverse('VideoList')
+            return HttpResponseRedirect(redirect_to)
+
+        # 취소를 누른 경우
+        elif mode == "cancel":
+            redirect_to = reverse('VideoList')
+            return HttpResponseRedirect(redirect_to)
+
 
 
 # 비디오 리스트 페이지

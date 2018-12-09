@@ -3,8 +3,9 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('list/', views.VideoList, name = 'ViedoList'),
-    path('add/', views.addVideo, name='Test_VideoCaption'),
+    path('list/', views.VideoList, name = 'VideoList'),
+    path('add/', views.addVideo, name='addVideo'),
+    path('process_addVideo', views.process_addVideo, name = 'process_addVideo'),
     path('mainTest/', views.Test_VideoMain, name = 'Test_VideoMain'),
     ### YouTube ###
 #    path('index/', views.index, name='index'),
