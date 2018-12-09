@@ -4,7 +4,7 @@ from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 # -*- coding: utf-8 -*-
 # -*- coding: utf-8 -*-
 
-
+'''
 import os
 
 import flask
@@ -148,7 +148,7 @@ def channels_list_by_username(client, **kwargs):
 
 
 ###################      youtube           #######################
-
+'''
 
 # 비디오 메인 페이지 테스트
 def Test_VideoMain(request):
@@ -171,15 +171,7 @@ def download_caption(youtube, **kwargs):
 
 def Test_VideoCaption(request):
 
-    #youtube = get_authenticated_service()
 
-    #download_caption(youtube,
-    #    videoId='6Uk5CIm4IPI',
-    #    captionId='SO_yf9MW10MySZwVMmzvA6uYGT0t6ccgXPhralxBKVw=')
-
-    #output = download_caption(client,
-    #     videoId='6Uk5CIm4IPI',
-    #     captionId='SO_yf9MW10MySZwVMmzvA6uYGT0t6ccgXPhralxBKVw=')
 
     return render(request, 'TestVideoCaption.html', {'output' : output})
 
