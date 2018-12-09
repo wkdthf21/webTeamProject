@@ -147,6 +147,21 @@ def channels_list_by_username(client, **kwargs):
   return flask.jsonify(**response)
 
 
+
+ def download_caption(youtube, **kwargs):
+
+   kwargs = remove_empty_kwargs(**kwargs)
+
+   subtitle = youtube.captions().download(
+     **kwargs
+   ).execute()
+
+   print ("First line of caption track: %s" % (subtitle))
+
+   return subtitle
+
+
+
 ###################      youtube           #######################
 '''
 
@@ -156,26 +171,14 @@ def Test_VideoMain(request):
     return render(request, 'TestVideoMain.html')
 
 
-def download_caption(youtube, **kwargs):
+# 비디오 추가 페이지
+# /Video/add
+def addVideo(request):
 
-  kwargs = remove_empty_kwargs(**kwargs)
-
-  subtitle = youtube.captions().download(
-    **kwargs
-  ).execute()
-
-  print ("First line of caption track: %s" % (subtitle))
-
-  return subtitle
+    return render(request, 'addVideo.html')
 
 
-def Test_VideoCaption(request):
-
-
-
-    return render(request, 'TestVideoCaption.html', {'output' : output})
-
-
+# 비디오 리스트 페이지
 # /Video/list/
 def VideoList(request):
 

@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
     path('list/', views.VideoList, name = 'ViedoList'),
+    path('add/', views.addVideo, name='Test_VideoCaption'),
     path('mainTest/', views.Test_VideoMain, name = 'Test_VideoMain'),
-    path('captionTest/', views.Test_VideoCaption, name='Test_VideoCaption'),
     ### YouTube ###
 #    path('index/', views.index, name='index'),
 #    path('authorize/', views.authorize, name='authorize'),
