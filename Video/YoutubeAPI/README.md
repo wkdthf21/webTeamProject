@@ -16,3 +16,15 @@ YouTube Data API v3 사용
 "http://127.0.0.1/oauth2callback"
 
 5. Test : python sample.py --arg1=value1 --arg2=value2 ...
+
+사용 예시
+
+```
+ Video ID : 6Uk5CIm4IPI
+ Caption ID : SO_yf9MW10MySZwVMmzvA6uYGT0t6ccgXPhralxBKVw=
+ python captions.py --videoid=6Uk5CIm4IPI --action=list
+ python captions.py --videoid=6Uk5CIm4IPI --captionid=SO_yf9MW10MySZwVMmzvA6uYGT0t6ccgXPhralxBKVw= --action=download
+```
+
+6. url과 view에 youtube로 주석 처리한 부분 -> youtube api web으로 구현
+   하지만 oauth2callback 함수에서 오류 발생
