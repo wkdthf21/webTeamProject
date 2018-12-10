@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>수강 신청 메인 페이지</title>
+</head>
+
+<body>
+<h1>수강 신청</h1><br><br>
+<table>
+    <thead> 강의 목록 </thead>
+    <tr>
+        <th>번호</th>
+        <th>분류</th>
+        <th>강의 이름</th>
+        <th>강사 이름</th>
+        <th>레벨</th>
+    </tr>
+        {% for subject in subjects %}
+        <form  action="" method="POST">
+        {% csrf_token %}
+
+    <tr>
+        <td> {{ forloop.counter }}</td>
+        <td>{{ subject.sub_categorize|upper }}</td>
+        <td>{{ subject.sub_name|upper }}</td>
+        <td>{{ subject.i_name.name|upper }}</td>
+        <td>{{ subject.lecture_level|upper }}</td>
+        <td>
+            {% if not instructor %}
+            <input name="sign" type="hidden" value="{{subject.id}}">
+            <input type="submit" value="수강 신청">
+            {% endif %}
+        </td>
+    </tr>
+</form>
+    {% endfor %}
+
+</table>
+
+{% if instructor %}
+
+<!--{{ instructor.i_id }}
+{{ user.username }}-->
+<br>
+<input id="add" type="button" name="prev" value="강의 개설"
+    onclick="location.href='/sugang/addclass/'">
+<input id="in_go" type="button" name="prev" value="강의 목록"
+    onclick="location.href='/sugang/myclass/'">
+{% else %}
+<!--{{ instructor.i_id }}
+{{ user.username }}-->
+<br>
+    <input id="In_sign" type="button" name="In_sign" value="강사 전환"
+    onclick="location.href='/sugang/signInstructor/'">
+<input id="st_go" type="button" name="prev" value="나의 강의실로 이동"
+    onclick="location.href='/sugang/myclass/'">
+{% endif %}
+
+</body>
+
+</html>

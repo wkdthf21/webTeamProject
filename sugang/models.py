@@ -30,26 +30,30 @@ class Subject(models.Model):
         ('공통','공통')
     )
 
-    sub_categorize = models.CharField(max_length=10,
-                                      choices=SUB_CHOICES,
-                                      default='토익')
+    sub_categorize = models.CharField(max_length=10,choices=SUB_CHOICES,default='토익')
     sub_name = models.CharField(max_length=30)
     sub_code = models.CharField(max_length=10, null=False)
-    i_name = models.CharField(max_length=10)
-    i_code = models.CharField(max_length=10)
+    i_name = models.ForeignKey('Instructor', on_delete=models.CASCADE)
     total_lecture = models.IntegerField(default=0)
-    lecture_level = models.CharField(max_length=10,
-                                      choices=LEVEL_CHOICES,
-                                      default='공통')
+    lecture_level = models.CharField(max_length=10, choices=LEVEL_CHOICES,default='공통')
     book = models.CharField(max_length=20)
 
     def __unicode__(self):
         return self.sub_name
 
 class Take(models.Model):
-    username = models.CharField(max_length=10)
-    #username = models.ForeignKey('User')
-    sub_code = models.CharField(max_length=10, null=False)
+    username = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    subject = models.ForeignKey('Subject',on_delete=models.CASCADE, default=0)
 
     def __unicode__(self):
         return self.username
+
+
+
+class Instructor(models.Model):
+    name = models.CharField(max_length=10)
+    i_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    i_pw = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        return self.i_name

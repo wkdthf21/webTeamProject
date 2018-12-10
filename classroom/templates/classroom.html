@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>강의실</title>
+</head>
+<body>
+<p>{{ user.username }}님, 강의실에 오신 것을 환영합니다.</p>
+<br>
+{% if instructor %}
+{{ instructor.id }}
+{{ user.username }}
+
+
+
+<!--{% if instructor.id == subject.i_name.id %}-->
+<h1>{{ subject.i_name.name }} 강사의 {{ subject.sub_name}} 강의실</h1>
+<p>강의 교재 : {{ subject.book}}</p>
+<p>강의의 강사입니다.</p>
+
+{% endif %}
+
+{% else %}
+<!--{{ instructor.i_id }}
+{{ user.username }}-->
+
+<h1>{{ subject.i_name.name }}강사의 {{ subject.sub_name}} 강의실</h1>
+<p>강의 교재 : {{ subject.book}}</p>
+<p>강의의 강사가 아닙니다.</p>
+
+{% endif %}
+    <br><br>
+    <input id="prev" type="button" name="prev" value="수강 신청 페이지로" onclick="location.href='/sugang/'">
+</body>
+</html>
