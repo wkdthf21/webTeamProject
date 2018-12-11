@@ -175,8 +175,22 @@ def Test_VideoMain(request):
 # 비디오 메인 화면
 # Video/main/video_id
 def VideoMain(request, video_id):
+    # 로그인 했을 경우
+    if 'userId' in request.session :
 
-    return render(request, 'VideoMain.html')
+        userId = request.session['userId']
+
+        videoRecord = video.objects.get(video_id = video_id)
+
+        return render(request, 'VideoMain.html', {'userId' : userId, 'videoRecord' : videoRecord})
+
+
+    # 로그인 안했을 경우
+    else:
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
+
+
 
 
 # 비디오 추가 페이지
