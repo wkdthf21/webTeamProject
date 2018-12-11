@@ -15,16 +15,17 @@
     }
 
     document.onmouseup = function() {
-        document.getElementById("WordList").innerHTML += selectText();
         if (selectText()!=''){
-            document.getElementById("WordList").innerHTML += '</br>'
+            var word = selectText;
+            document.getElementById("WordList").value += selectText();
+            document.getElementById("WordList").value += '\n';
         }
     }
 </script>
 
     <br/>
     <br/>
-    <form class="studyVideo" action="#" method="POST">
+    <form class="studyVideo" method="POST">
     {% csrf_token %}
     <!-- Video Main  -->
     <div class = "flexBox">
@@ -36,16 +37,20 @@
         <div class = "row justify-content-md-center">
           <div class = "col-3 wordList">
             <div class="card" style="width: 18rem;">
-            <div id="WordList" class="card-body">
-              <h5 class="card-title">Word List</h5><br/>
+            <div class="card-body">
+              <h6 class="card-title">Word List </h6>
+              <textarea id="WordList" name="WordList" rows="5" cols="30"></textarea>
             </div>
           </div>
           </div>
           <div class = "col-3 video">
             <iframe width="448" height="252" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
+          <div class = "col-3 SaveButton">
+             <button class="btn btn-outline-danger" type = "submit" name="mode" value="Save"> Save </button><br/>
+          </div>
           <div class = "col-5">
-            </div>
+          </div>
           <div id="caption" class = "col-4">
             {{captionRecord.text | linebreaks}}
           </div>
@@ -58,6 +63,8 @@
         <br/>
         <br/>
     </div>
+    <br/>
+    <br/>
     </form>
 <script src="{% static 'js/scroll-fixed.js' %}"></script>
 {% endblock %}

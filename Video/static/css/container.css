@@ -6,11 +6,17 @@
 
 .wordList {
     position: fixed!important;
-    padding-right: 1100px;
-    padding-top: 350px;
+    padding-right: 950px;
+    padding-top: 330px;
 }
 
 .alertMessage{
   position: fixed!important;
   padding-right: 1100px;
+}
+
+.SaveButton{
+  position: fixed!important;
+  padding-right: 500px;
+  padding-top: 540px;
 }
