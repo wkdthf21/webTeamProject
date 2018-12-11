@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from .models import *
+from word.models import *
 from django.contrib.auth.models import User
 from .URLparse import *
 
@@ -394,6 +395,7 @@ def VideoStudy(request, video_id):
     if 'userId' in request.session :
 
         userId = request.session['userId']
+        student = User.objects.get(username=userId)
 
         if request.method == 'POST':
 
@@ -405,9 +407,16 @@ def VideoStudy(request, video_id):
                 wordList = request.POST['WordList']
 
                 words = wordList.split('\n')
+
+                # 단어 저장
                 for word in words:
-                    print(word)
-                    # 단어 저장하는거 짜면 됩니다 ( 수정 )
+
+                    if word != '' and word !='\r':
+                        
+                        wordRecord = Word(word_spell=word, u_id=student)
+                        wordRecord.save()
+
+
 
         videoRecord = video.objects.get(video_id = video_id)
         captionRecord = caption.objects.get(video_id = video_id)
