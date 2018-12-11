@@ -349,6 +349,18 @@ def VideoList(request):
 
         userId = request.session['userId']
 
+
+        # Add Video 클릭
+        if request.method == 'POST':
+
+            mode = request.POST['mode']
+
+            if mode == "Add":
+
+                redirect_to = reverse('addVideo')
+                return HttpResponseRedirect(redirect_to)
+
+
         # 최신순으로 정렬
         videoRecordList = video.objects.all().order_by('-video_update_date')
         index = 1
