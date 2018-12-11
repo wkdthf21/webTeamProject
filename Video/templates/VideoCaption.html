@@ -2,6 +2,8 @@
 {% block content %}
     <br/>
     <br/>
+    <form class="addVideo" action="/Video/process_editCaption" method="POST">
+    {% csrf_token %}
     <!-- Video Main  -->
     <div class = "container VideoTitleContainer">
       <!-- Video Header Row -->
@@ -35,7 +37,8 @@
         <div class = "col-2">
         </div>
         <div class = "col-6">
-          <textarea class="form-control" name="Caption" rows="10" placeholder="{{captionRecord.text}}">{{captionRecord.text}}</textarea>
+          <textarea class="form-control" name="captionText" rows="10" placeholder="{{captionRecord.text}}">{{captionRecord.text}}</textarea>
+          <input type="hidden" name="video_id" value="{{videoRecord.video_id}}">
         </div>
         <div class = "col-2">
         </div>
@@ -47,10 +50,10 @@
         <div class = "col-4">
         </div>
         <div class = "col-1">
-          <button type="button" class="btn btn-outline-secondary"><a href="/Video/ad">Save</a></button>
+          <button type="submit" name = "mode" value = "Save" class="btn btn-outline-secondary">Save</button>
         </div>
         <div class = "col-1">
-          <button type="button" class="btn btn-outline-secondary"><a href="/Video/main/{{videoRecord.video_id}}">Cancel</a></button>
+          <button type="submit" name = "mode" value = "Cancel" class="btn btn-outline-secondary">Cancel</button>
         </div>
         <div class = "col-4">
         </div>
@@ -58,5 +61,5 @@
       <br/>
       <br/>
     </div>
-    </div>
+    </form>
 {% endblock %}
