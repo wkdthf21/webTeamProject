@@ -6,7 +6,7 @@
 
 .wordList {
     position: fixed!important;
-    padding-right: 950px;
+    padding-right: 1100px;
     padding-top: 330px;
 }
 
@@ -17,6 +17,6 @@
 
 .SaveButton{
   position: fixed!important;
-  padding-right: 500px;
-  padding-top: 540px;
+  padding-right: 1100px;
+  padding-top: 550px;
 }
