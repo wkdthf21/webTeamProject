@@ -1,0 +1,64 @@
+{% extends 'header.html' %}
+{% block content %}
+    <br/>
+    <br/>
+    <form class="addVideo" action="#" method="POST">
+    {% csrf_token %}
+    <!-- Video Main  -->
+    <div class = "container VideoTitleContainer">
+      <!-- Video Header Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-3">
+        </div>
+        <div class = "col-6">
+          <h5>{{videoRecord.video_name}}</h5>
+        </div>
+        <div class = "col-2">
+        </div>
+      </div>
+      </div>
+      <br/>
+      <br/>
+      <div class = "container VideoContentContainer">
+      <!-- Video Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-3">
+        </div>
+        <div class = "col-6">
+          <iframe width="448" height="252" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class = "col-2">
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <!-- Caption Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-2">
+        </div>
+        <div class = "col-6">
+          {{captionRecord.text | linebreaks}}
+        </div>
+        <div class = "col-2">
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <!-- Button Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-4">
+        </div>
+        <div class = "col-1">
+          <button type="submit" name = "#" value = "#" class="btn btn-outline-secondary">Save</button>
+        </div>
+        <div class = "col-1">
+          <button type="submit" name = "#" value = "#" class="btn btn-outline-secondary">Cancel</button>
+        </div>
+        <div class = "col-4">
+        </div>
+      </div>
+      <br/>
+      <br/>
+    </div>
+    </form>
+{% endblock %}
