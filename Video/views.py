@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from .models import *
 from django.contrib.auth.models import User
+from .URLparse import *
 
 ###################      youtube           #######################
 # -*- coding: utf-8 -*-
@@ -234,7 +235,12 @@ def process_addVideo(request):
         if mode == "save" :
 
             Title = request.POST['Title']
+
             URL = request.POST['URL']
+            # URL -> https://youtu.be/6Uk5CIm4IPI 를
+            # URL -> https:/www.youtube.com/embed/6Uk5CIm4IPI로 변환 필요
+            URL = URLparsing(URL)
+
             Caption = request.POST['Caption']
 
             publisher = User.objects.get(username=userId)
