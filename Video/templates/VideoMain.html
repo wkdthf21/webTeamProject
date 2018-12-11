@@ -10,6 +10,7 @@
         </div>
         <div class = "col-8">
           <h3>{{videoRecord.video_name}}</h3>
+          <button type="button" class="btn btn-outline-secondary"><a href="/Video/main/caption/{{videoRecord.video_id}}">Caption Edit</a></button>
         </div>
         <div class = "col-2">
         </div>
@@ -24,7 +25,6 @@
         </div>
         <div class = "col-8">
           <iframe width="640" height="360" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-         {{videoRecord.video_url}}
         </div>
         <div class = "col-2">
         </div>
@@ -35,7 +35,7 @@
         <div class = "col-4">
         </div>
         <div class = "col-1">
-          <button type="button" class="btn btn-outline-secondary"><a href="/Video/add">Start</a></button>
+          <button type="button" class="btn btn-outline-secondary"><a href="/Video/ad">Start</a></button>
         </div>
         <div class = "col-1">
           <button type="button" class="btn btn-outline-secondary"><a href="/Video/list">Back</a></button>
