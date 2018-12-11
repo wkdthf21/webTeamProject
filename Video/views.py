@@ -188,10 +188,14 @@ def VideoMain(request, video_id):
 
             mode = request.POST['mode']
 
+            # 공부 시작
             if mode == "Start" :
 
-                print("Start with me!")
+                redirect_to = reverse('VideoStudy', kwargs={'video_id':video_id})
+                return HttpResponseRedirect(redirect_to)
 
+
+            # 비디로 리스트
             elif mode == "Back":
 
                 redirect_to = reverse('VideoList')
@@ -374,6 +378,28 @@ def VideoList(request):
         # 강사이면 영상 추가 버튼 활성화 ( 수정 )
 
         return render(request, 'VideoList.html', {'userId' : userId, 'recordList' : recordList})
+
+
+    # 로그인 안했을 경우
+    else:
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
+
+
+# 비디오 메인 화면 -> 비디오 공부 화면
+# Video/study/video_id
+def VideoStudy(request, video_id):
+
+    # 로그인 했을 경우
+    if 'userId' in request.session :
+
+        userId = request.session['userId']
+
+        videoRecord = video.objects.get(video_id = video_id)
+        captionRecord = caption.objects.get(video_id = video_id)
+
+        return render(request, 'VideoStudy.html', {'userId' : userId, 'videoRecord' : videoRecord,
+        'captionRecord' : captionRecord})
 
 
     # 로그인 안했을 경우
