@@ -5,6 +5,7 @@
 <script type="text/javascript">
     function selectText() {
         var selectionText = "";
+
         if (document.getSelection) {
             selectionText = document.getSelection();
         } else if (document.selection) {
@@ -16,7 +17,7 @@
     document.onmouseup = function() {
         document.getElementById("WordList").innerHTML += selectText();
         if (selectText()!=''){
-            document.getElementById("WordList").innerHTML += ' '
+            document.getElementById("WordList").innerHTML += '</br>'
         }
     }
 </script>
@@ -28,17 +29,24 @@
     <!-- Video Main  -->
     <div class = "flexBox">
       <div class = "container">
+        <div class="alert alert-light alertMessage" role="alert">
+          Press left bottom to play!
+        </div>
         <!-- Video Header Row --> <!-- Video Row -->
         <div class = "row justify-content-md-center">
           <div class = "col-3 wordList">
-            <div id="WordList">WordList<br/></div><br/>
+            <div class="card" style="width: 18rem;">
+            <div id="WordList" class="card-body">
+              <h5 class="card-title">Word List</h5><br/>
+            </div>
+          </div>
           </div>
           <div class = "col-3 video">
             <iframe width="448" height="252" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <div class = "col-5">
             </div>
-          <div class = "col-4">
+          <div id="caption" class = "col-4">
             {{captionRecord.text | linebreaks}}
           </div>
         </div>

@@ -1,10 +1,16 @@
 .video {
     position: fixed!important;
     padding-right: 1100px;
+    padding-top: 50px;
 }
 
 .wordList {
     position: fixed!important;
     padding-right: 1100px;
-    padding-top: 300px;
+    padding-top: 350px;
+}
+
+.alertMessage{
+  position: fixed!important;
+  padding-right: 1100px;
 }
