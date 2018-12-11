@@ -183,6 +183,8 @@ def VideoMain(request, video_id):
 
         videoRecord = video.objects.get(video_id = video_id)
 
+        # 강사이면 자막 수정 버튼 활성화 ( 수정 )
+
         return render(request, 'VideoMain.html', {'userId' : userId, 'videoRecord' : videoRecord})
 
 
@@ -212,6 +214,7 @@ def addVideo(request):
     else:
         redirect_to = reverse('Main')
         return HttpResponseRedirect(redirect_to)
+
 
 
 # 비디오 저장 클릭시 실행
@@ -261,6 +264,30 @@ def process_addVideo(request):
             return HttpResponseRedirect(redirect_to)
 
 
+# 비디오 메인 화면 -> 자막 수정 화면
+# Video/main/caption/video_id
+def VideoCaption(request, video_id):
+
+    # 로그인 했을 경우
+    if 'userId' in request.session :
+
+        userId = request.session['userId']
+
+        # 강사인지 확인하는 법 고민 ( 수정 )
+
+        videoRecord = video.objects.get(video_id = video_id)
+        captionRecord = caption.objects.get(video_id = video_id)
+
+        return render(request, 'VideoCaption.html', {'userId' : userId, 'videoRecord' : videoRecord,
+        'captionRecord' : captionRecord})
+
+
+    # 로그인 안했을 경우
+    else:
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
+
+
 
 # 비디오 리스트 페이지
 # /Video/list/
@@ -281,6 +308,7 @@ def VideoList(request):
             recordList.append([index, v])
             index = index + 1
 
+        # 강사이면 영상 추가 버튼 활성화 ( 수정 )
 
         return render(request, 'VideoList.html', {'userId' : userId, 'recordList' : recordList})
 
