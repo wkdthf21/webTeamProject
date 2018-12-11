@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^main/caption/(?P<video_id>\d+)/$', views.VideoCaption),
     path('process_editCaption', views.process_editCaption, name='process_editCaption'),
     url(r'^study/(?P<video_id>\d+)/$', views.VideoStudy, name='VideoStudy'),
-    path('mainTest/', views.Test_VideoMain, name = 'Test_VideoMain'),
+    # path('mainTest/', views.Test_VideoMain, name = 'Test_VideoMain'),
     ### YouTube ###
 #    path('index/', views.index, name='index'),
 #    path('authorize/', views.authorize, name='authorize'),

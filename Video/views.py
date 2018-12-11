@@ -169,9 +169,9 @@ def channels_list_by_username(client, **kwargs):
 '''
 
 # 비디오 메인 페이지 테스트
-def Test_VideoMain(request):
+#def Test_VideoMain(request):
 
-    return render(request, 'TestVideoMain.html')
+#    return render(request, 'TestVideoMain.html')
 
 
 # 비디오 메인 화면
