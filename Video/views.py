@@ -173,6 +173,7 @@ def Test_VideoMain(request):
 
     return render(request, 'TestVideoMain.html')
 
+
 # 비디오 메인 화면
 # Video/main/video_id
 def VideoMain(request, video_id):
@@ -287,6 +288,43 @@ def VideoCaption(request, video_id):
         redirect_to = reverse('Main')
         return HttpResponseRedirect(redirect_to)
 
+
+# 자막 Save 클릭시 실행
+# /Video/process_editCaption
+def process_editCaption(request):
+
+    # 로그인 안했을 경우
+    if not 'userId' in request.session :
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
+
+
+    # 로그인 했을 경우
+
+    userId = request.session['userId']
+
+    if request.method == 'POST':
+
+        # 저장
+        if request.POST['mode'] == "Save":
+
+            captionText = request.POST['captionText']
+            video_id = request.POST['video_id']
+
+            captionRecord = caption.objects.get(video_id=video_id)
+            captionRecord.text = captionText
+            captionRecord.save()
+
+            redirect_to = reverse('VideoMain', kwargs={'video_id':video_id})
+            return HttpResponseRedirect(redirect_to)
+
+        # 취소
+        elif request.POST['mode'] == 'Cancel':
+
+            video_id = request.POST['video_id']
+
+            redirect_to = reverse('VideoMain', kwargs={'video_id':video_id})
+            return HttpResponseRedirect(redirect_to)
 
 
 # 비디오 리스트 페이지
