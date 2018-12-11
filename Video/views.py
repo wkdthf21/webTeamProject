@@ -395,6 +395,20 @@ def VideoStudy(request, video_id):
 
         userId = request.session['userId']
 
+        if request.method == 'POST':
+
+            mode = request.POST['mode']
+
+            # 단어 저장을 눌렀을 경우
+            if mode == "Save":
+
+                wordList = request.POST['WordList']
+
+                words = wordList.split('\n')
+                for word in words:
+                    print(word)
+                    # 단어 저장하는거 짜면 됩니다 ( 수정 )
+
         videoRecord = video.objects.get(video_id = video_id)
         captionRecord = caption.objects.get(video_id = video_id)
 
