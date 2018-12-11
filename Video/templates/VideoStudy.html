@@ -1,12 +1,14 @@
 {% extends 'header.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="./scroll-fixed.css"/>
     <br/>
     <br/>
-    <form class="addVideo" action="#" method="POST">
+    <form class="studyVideo" action="#" method="POST">
     {% csrf_token %}
     <!-- Video Main  -->
-    <div class = "container VideoTitleContainer">
-      <!-- Video Header Row -->
+    <div class = "container scroll-menu">
+      <!-- Video Header Row --> <!-- Video Row -->
       <div class = "row justify-content-md-center">
         <div class = "col-3">
         </div>
@@ -16,10 +18,8 @@
         <div class = "col-2">
         </div>
       </div>
-      </div>
       <br/>
       <br/>
-      <div class = "container VideoContentContainer">
       <!-- Video Row -->
       <div class = "row justify-content-md-center">
         <div class = "col-3">
@@ -30,9 +30,11 @@
         <div class = "col-2">
         </div>
       </div>
+      </div>
       <br/>
       <br/>
-      <!-- Caption Row -->
+      <div class = "container scroll-content">
+      <!-- Caption -->
       <div class = "row justify-content-md-center">
         <div class = "col-2">
         </div>
@@ -44,7 +46,7 @@
       </div>
       <br/>
       <br/>
-      <!-- Button Row -->
+      <!-- Button -->
       <div class = "row justify-content-md-center">
         <div class = "col-4">
         </div>
@@ -61,4 +63,5 @@
       <br/>
     </div>
     </form>
+<script src="{% static 'js/scroll-fixed.js' %}"></script>
 {% endblock %}
