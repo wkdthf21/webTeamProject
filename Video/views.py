@@ -184,6 +184,19 @@ def VideoMain(request, video_id):
 
         videoRecord = video.objects.get(video_id = video_id)
 
+        if request.method == 'POST' :
+
+            mode = request.POST['mode']
+
+            if mode == "Start" :
+
+                print("Start with me!")
+
+            elif mode == "Back":
+
+                redirect_to = reverse('VideoList')
+                return HttpResponseRedirect(redirect_to)
+
         # 강사이면 자막 수정 버튼 활성화 ( 수정 )
 
         return render(request, 'VideoMain.html', {'userId' : userId, 'videoRecord' : videoRecord})
