@@ -38,6 +38,8 @@
 
 <script>
     $("#voca-table tr").click(function(){
+        alert("선택한 단어를 내 단어장에 저장합니다.");
+
         var str = ""
         var tdArr = new Array();
 
@@ -47,8 +49,13 @@
         var spell = td.eq(0).text();
         var mean = td.eq(1).text();
 
-        alert("spell : " + spell + "\nmean : " + mean);
-        alert("article_id : " + {{ article_id }});
+        var url = "/News/article/vocabulary/add-voca?article_id=";
+        var url2 = "&spell="
+        var url3 = "&mean=";
+
+        var final_url = url + {{article_id}} + url2 + spell + url3 + mean;
+       
+        location.href=final_url;
     })
 </script>
 
