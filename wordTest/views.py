@@ -1,84 +1,84 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.db.models import Max
+from django.contrib.auth import get_user_model
 from word.models import Word
 import random
 
+SPELL = 0
+MEAN = 1
+
 # Create your views here.
 def test_main(request):
-    if 'userId' in request.session :
-        userId = request.session['userId']
+    userId = isUserId(request)
 
-        # 로그아웃 요청
-        if request.method == "POST":
-            mode = request.POST['Sign']
+    return render(request, 'wordTest/main.html', {'userId' : userId})
 
-            if mode == '로그아웃':
-                redirect_to = reverse('Logout')
-                return HttpResponseRedirect(redirect_to)
-
-        return render(request, 'wordTest/main.html', {'userId' : userId})
-
-       # 로그인을 하지 않은 상태
-    else:
-        redirect_to = reverse('Login')
-        return HttpResponseRedirect(redirect_to)
 
 def word_test(request):
-    if 'userId' in request.session :
-        userId = request.session['userId']
+    userId = isUserId(request)
 
-        # 로그아웃 요청
-        if request.method == "POST":
-            mode = request.POST['Sign']
+    isAskSpell = questionType()
+    questionWord = ""
 
-            if mode == '로그아웃':
-                redirect_to = reverse('Logout')
-                return HttpResponseRedirect(redirect_to)
+    quesIndexs = getQuestions()
 
-        isAskSpell = random.randrange(0, 1)
-        questionNum = 0
-        question = ""
-        data = Word.objects.order_by('-pk')[0]
-        # TODO data가 없을경우 예외처리
-        indexs = getRandomQuestion(data.word_id)
-        indexs.append(data.word_id)
-        random.shuffle(indexs)
-        numbers = []
+    if isDataNotExist(quesIndexs):
+        NotExistSavedWord()
 
-        if not isAskSpell:
-            question = data.word_spell
+    quesNum=0
+    word = Word.objects.get(word_id=quesIndexs[quesNum])
+    indexs = getRandomNumbers(Word.objects.all(), quesIndexs[quesNum])
+    indexs.append(quesIndexs[quesNum])
+    random.shuffle(indexs)
+    numbers = []
 
-            for i in indexs:
-                temp = Word.objects.get(word_id=i)
-                numbers.append(temp.word_mean)
+    if not isAskSpell:
+        questionWord = word.word_spell
 
-        else:
-            question = data.word_mean
+        for i in indexs:
+            temp = Word.objects.get(word_id=i)
+            numbers.append(temp.word_mean)
 
-            for i in indexs:
-                temp = Word.objects.get(word_id=i)
-                numbers.append(temp.word_spell)
-
-        return render(request, 'wordTest/test.html',
-                                        {'userId' : userId,
-                                         'isAskSpell': isAskSpell,
-                                         'questionNum': questionNum+1,
-                                         'word': question,
-                                         'number1': numbers[0],
-                                         'number2': numbers[1],
-                                         'number3': numbers[2],
-                                         'number4': numbers[3],
-                                         'number5': numbers[4],
-        })
-
-   # 로그인을 하지 않은 상태
     else:
-        redirect_to = reverse('Login')
-        return HttpResponseRedirect(redirect_to)
+        questionWord = word.word_mean
 
+        for i in indexs:
+            temp = Word.objects.get(word_id=i)
+            numbers.append(temp.word_spell)
 
-def getRandomQuestion(id):
-    max_id = Word.objects.all().aggregate(max_id=Max("word_id"))['max_id']
+    return render(request, 'wordTest/test.html',
+                                {'userId' : userId,
+                                 'isAskSpell': isAskSpell,
+                                 'questionNum': quesNum+1,
+                                 'word': questionWord,
+                                 'number1': numbers[0],
+                                 'number2': numbers[1],
+                                 'number3': numbers[2],
+                                 'number4': numbers[3],
+                                 'number5': numbers[4],
+    })
+
+def getQuestions():
+    user = get_user_model()
+    words = Word.objects.filter(u_id=user.objects.get(username='1111'))
+    question_word_ids = []
+
+    if len(words) < 4:
+        for word in words:
+            question_word_ids.append(word.word_id)
+    else:
+        question_word_ids = getRandomNumbers(words, " ")
+
+    random.shuffle(question_word_ids)
+
+    questions = {}
+    for index, id in enumerate(question_word_ids):
+        questions[index] = id
+
+    return questions
+
+def getRandomNumbers(AllObj, id):
+    max_id = AllObj.aggregate(max_id=Max("word_id"))['max_id']
     result = []
 
     while True:
@@ -88,3 +88,23 @@ def getRandomQuestion(id):
             result.append(word.word_id)
             if len(result) == 4:
                 return result
+
+def isUserId(request):
+    if 'userId' in request.session :
+        userId = request.session['userId']
+        return userId
+
+           # 로그인을 하지 않은 상태
+    else:
+        redirect_to = reverse('Login')
+        return HttpResponseRedirect(redirect_to)
+
+def questionType():
+    return random.randrange(SPELL, MEAN)
+
+def NotExistSavedWord():
+    redirect_to = reverse('TestMain')
+    return HttpResponseRedirect(redirect_to)
+
+def isDataNotExist(data):
+    return len(data)
