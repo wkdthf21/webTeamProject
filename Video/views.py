@@ -354,6 +354,17 @@ def VideoList(request):
 
         userId = request.session['userId']
 
+        videoRecordList = video.objects.all()
+
+        # 영상 검색
+
+        if request.method == 'GET':
+
+            q = request.GET.get('q','')
+
+            if q:
+                videoRecordList = video.objects.filter(video_name__contains=q)
+
 
         # Add Video 클릭
         if request.method == 'POST':
@@ -367,7 +378,7 @@ def VideoList(request):
 
 
         # 최신순으로 정렬
-        videoRecordList = video.objects.all().order_by('-video_update_date')
+        videoRecordList = videoRecordList.order_by('-video_update_date')
         index = 1
         recordList = []
 
@@ -412,7 +423,7 @@ def VideoStudy(request, video_id):
                 for word in words:
 
                     if word != '' and word !='\r':
-                        
+
                         wordRecord = Word(word_spell=word, u_id=student)
                         wordRecord.save()
 
