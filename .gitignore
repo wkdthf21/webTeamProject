@@ -5,3 +5,6 @@
 # swap files ##
 *.swp
 *.swo
+
+# python temp file
+*pyc
