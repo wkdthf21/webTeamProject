@@ -90,11 +90,11 @@ def getRandomNumbers(AllObj, id):
                 return result
 
 def isUserId(request):
+    # 로그인을 한 상태
     if 'userId' in request.session :
         userId = request.session['userId']
         return userId
 
-           # 로그인을 하지 않은 상태
     else:
         redirect_to = reverse('Login')
         return HttpResponseRedirect(redirect_to)
