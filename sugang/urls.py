@@ -1,7 +1,9 @@
 from django.urls import path, include
-from django.conf.urls import url
-from . import views
 
+from . import views
+from django.views.static import serve
+from django.conf import settings
+from django.conf.urls import url
 urlpatterns = [
      path('', views.SugangMain, name='SugangMain'),
      path('addclass/', views.SugangAddNewClass, name='SugangAddNewClass'),
@@ -9,4 +11,6 @@ urlpatterns = [
      path('thanks/', views.thanks, name='Thanks'),
      path('myclass/', views.myclass, name='Myclass'),
 ]
+
+
 #(?P<subject_id>\d+)/$

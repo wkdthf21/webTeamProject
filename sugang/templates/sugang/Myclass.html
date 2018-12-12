@@ -31,12 +31,10 @@
             <form action="/classroom/{{subject.id}}/" method="POST">
                 {% csrf_token %}
                 <input name="link" type="hidden" value="{{subject.id}}">
-        <td><input type="button" value="강의실로 이동" onclick="location.href='/classroom/{{subject.id}}/'"></td>
-
+        <td>
+            <input type="button" value="강의실로 이동" onclick="location.href='/classroom/{{subject.id}}/'"></td>
             </form>
-
         </td>
-        <!--링크 수정 필요-->
     </tr>
         {% endif %}
         {% endfor %}
