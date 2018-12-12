@@ -1,8 +1,11 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.db.models import Max
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from word.models import Word
+from .models import Review, Test
 import random
+import ast
 
 SPELL = 0
 MEAN = 1
@@ -13,14 +16,17 @@ def test_main(request):
 
     return render(request, 'wordTest/main.html', {'userId' : userId})
 
+def test_result(request, correct, wrong):
+    ret
 
 def word_test(request):
     userId = isUserId(request)
-
     isAskSpell = questionType()
     questionWord = ""
 
-    quesIndexs = getQuestions()
+    user = get_user_model()
+    words = Word.objects.filter(u_id=user.objects.get(username=userId))
+    quesIndexs = getQuestions(words)
 
     if isDataNotExist(quesIndexs):
         NotExistSavedWord()
@@ -31,36 +37,56 @@ def word_test(request):
     indexs.append(quesIndexs[quesNum])
     random.shuffle(indexs)
     numbers = []
+    wrong = []
+    correct = []
 
-    if not isAskSpell:
-        questionWord = word.word_spell
+    for i in indexs:
+        temp = Word.objects.get(word_id=i)
+        numbers.append(temp)
 
-        for i in indexs:
-            temp = Word.objects.get(word_id=i)
-            numbers.append(temp.word_mean)
+    if request.method == 'POST':
+        selector = request.POST['num']
+        quesId = request.POST['quesId']
+        quesNum = int(request.POST['quesNum'])
+        wrong = ast.literal_eval(request.POST['wrong'])
+        correct = ast.literal_eval(request.POST['correct'])
 
-    else:
-        questionWord = word.word_mean
 
-        for i in indexs:
-            temp = Word.objects.get(word_id=i)
-            numbers.append(temp.word_spell)
+        if selector != quesId:
+            wrong.append(quesId)
+
+        else:
+            correct.append(quesId)
+
+        maxQues = 5
+        if len(words) < 5:
+            maxQues = len(words)
+
+        if quesNum == maxQues:
+            me = user.objects.get(username=userId)
+            score = int((len(correct) / len(wrong) + len(correct)) * 100)
+            Test.objects.create(test_date=timezone.now(), u_id=me, score=score)
+
+            for wrong_word in set(wrong):
+                Review.objects.create(test_id =Test.objects.latest('pk'), wrong_word_id=Word.objects.get(word_id=wrong_word))
+
+            return render(request, 'result/result.html',
+                                            {'userId': userId,
+                                             'correct': len(correct),
+                                             'wrong': len(wrong),})
 
     return render(request, 'wordTest/test.html',
                                 {'userId' : userId,
                                  'isAskSpell': isAskSpell,
                                  'questionNum': quesNum+1,
-                                 'word': questionWord,
-                                 'number1': numbers[0],
-                                 'number2': numbers[1],
-                                 'number3': numbers[2],
-                                 'number4': numbers[3],
-                                 'number5': numbers[4],
+                                 'correct': correct,
+                                 'wrong': wrong,
+                                 'word': word,
+                                 'numbers': numbers,
     })
 
-def getQuestions():
-    user = get_user_model()
-    words = Word.objects.filter(u_id=user.objects.get(username='1111'))
+
+def getQuestions(words):
     question_word_ids = []
 
     if len(words) < 4:
