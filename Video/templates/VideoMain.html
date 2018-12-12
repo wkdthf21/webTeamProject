@@ -1,0 +1,54 @@
+{% extends 'header.html' %}
+{% block content %}
+    <br/>
+    <br/>
+    <!-- Video Main  -->
+    <div class = "container VideoTitleContainer">
+      <form class="editRequest" action="/Video/main/caption/{{videoRecord.video_id}}/" method="POST">
+      {% csrf_token %}
+      <!-- Video Header Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-2">
+        </div>
+        <div class = "col-8">
+          <h3>{{videoRecord.video_name}}</h3>
+          <button type="submit" class="btn btn-outline-secondary">Caption Edit</button>
+        </div>
+        <div class = "col-2">
+        </div>
+      </div>
+      </form>
+      </div>
+      <br/>
+      <br/>
+      <div class = "container VideoContentContainer">
+      <!-- Video Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-2">
+        </div>
+        <div class = "col-8">
+          <iframe width="640" height="360" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class = "col-2">
+        </div>
+      </div>
+      <br/>
+      <form class="VideoMainButton" method="POST">
+      {% csrf_token %}
+      <!-- Button Row -->
+      <div class = "row justify-content-md-center">
+        <div class = "col-4">
+        </div>
+        <div class = "col-1">
+          <button type="submit" name="mode" value = "Start" class="btn btn-outline-secondary">Start</button>
+        </div>
+        <div class = "col-1">
+          <button type="submit" name = "mode" value = "Back" class="btn btn-outline-secondary">Back</button>
+        </div>
+        <div class = "col-5">
+        </div>
+      </div>
+      </form>
+    </div>
+    </div>
+{% endblock %}
