@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 열람</title>
+</head>
+<body>
+<p>글 열람</p>
+
+{%if board %}
+<p>제목:</p>
+{{ board.title }}
+<p>내용:</p>
+{{ board.content }}
+{% if board.file %}
+<p>첨부파일:</p>
+<a id="id_uploaded_file" href="{{ board.file.url }}" download>{{ board.file.name }}</a>
+{% endif %}
+{% endif %}
+<br><br>
+
+<form  action="/classroom/{{subject.id}}/{{board.id}}/delete" method="POST">
+        {% csrf_token %}
+            <input type="submit" value="글 삭제">
+</form>
+
+<input type="button" value="돌아가기" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+
+</body>
+</html>

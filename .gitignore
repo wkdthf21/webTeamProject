@@ -1,10 +1,17 @@
 ## migration files ##
 */migrations/00*
+*/migrations/__py*/*
 */migrations/__py*
-
-## pycache files ##
-*/__pycache**
 
 # swap files ##
 *.swp
 *.swo
+
+# python temp file
+*pyc
+
+## pycache files ##
+*/__pycache__/*
+
+## DB file ##
+db.sqlite3

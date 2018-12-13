@@ -1,0 +1,30 @@
+
+{% extends 'header.html' %}
+
+{% block content %}
+<br/>
+<br/>
+<main role="main" class="container">
+
+      <div class="row">
+
+        <div class="col-md-10 article-list">
+            <h2>Articles</h2>
+            <div class="list-group">
+            {% for article in articles %}
+                <a href="{% url 'article_detail' pk=article.pk %}" class="list-group-item">{{article.title}}</a>
+            {% endfor %}
+            </div>
+
+          <nav class="blog-pagination">
+            <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+{% endblock %}
