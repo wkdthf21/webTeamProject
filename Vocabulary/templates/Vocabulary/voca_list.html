@@ -1,0 +1,73 @@
+
+{% extends 'header.html' %}
+
+{% block content %}
+<br/>
+<br/>
+<main role="main" class="container">
+
+      <div class="row">
+
+        <div class="col-md-10 article-list">
+            <h2>My Vocabulary</h2>
+            {% csrf_token %}
+            <table id="voca-table" class="table table-hover">
+                <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>단어</th>
+                    <th>뜻</th>
+                </tr>
+                </thead>
+            {% for voca in vocas %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="user_CheckBox" >
+                    </td>
+                    <td>{{voca.word_spell}}</td>
+                    <td>{{voca.word_mean}}</td>
+	            </tr>
+            {% endfor %}
+            </table>
+            <a class="btn btn-outline-primary" href="{% url 'add_new_voca' %}">단어 추가</a>
+            <button type="button" class="btn btn-outline btn-primary pull-right" id="selectBtn">삭제</button>
+
+
+        </div>
+
+      </div>
+
+</main>
+
+<script>
+    $("#selectBtn").click(function(){
+
+            var rowData = new Array();
+            var tdArr = new Array();
+
+            var checkbox = $("input[name=user_CheckBox]:checked");
+
+            checkbox.each(function(i) {
+
+                var tr = checkbox.parent().parent().eq(i);
+                var td = tr.children();
+
+                rowData.push(tr.text());
+
+                var spell = td.eq(1).text();
+                var mean = td.eq(2).text();
+
+                alert(spell);
+                alert(mean);
+
+
+                var final_url2 = "delete?spell=";
+                var final_url3 = final_url2 + spell;
+
+                location.href=final_url3;
+            });
+
+        });
+</script>
+
+{% endblock %}
