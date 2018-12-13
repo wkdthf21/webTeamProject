@@ -1,0 +1,67 @@
+{% extends 'header.html' %}
+
+{% block content %}
+    <!-- Main Page -->
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-2"> </div>
+            <div class = "col-6">
+                {% if isAskSpell %}
+                    {{questionNum}}. 다음 단어의 철자로 올바른 것은?
+                {% else %}
+                    {{questionNum}}. 다음 단어의 뜻으로 올바른 것은?
+                {% endif %}
+            </div>
+            <div class = "col-4"> </div>
+        </div>
+        <br />
+        <div class ="row">
+            <div class = "col-3"> </div>
+            <div class = "col-5">
+                {% if isAskSpell %}
+                    - {{ word.word_spell }}
+                {% else %}
+                    - {{ word.word_spell }}
+                {% endif %}
+            </div>
+            <div class= "col-4"> </div>
+        </div>
+        <br />
+        <form action="{% url 'test' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class = "col-2"> </div>
+            <div class = "col-6">
+            {% for number in numbers %}
+            <label for="num{{ forloop.counter0 }}" style="cursor:pointer">
+                <input type="radio" id="num{{ forloop.counter0 }}" name="num" value="{{ number.word_id }}"/>
+                {% if isAskSpell %}
+                    {{ number.word_spell }}
+                {% else %}
+                    {{ number.word_mean }}
+                {% endif %}
+            </label>
+            <br />
+            {% endfor %}
+            <input type="hidden" name="quesNum" value="{{ questionNum }}" />
+            <input type="hidden" name="quesId" value="{{ word.word_id }}" />
+            <input type="hidden" name="wrong" value="{{ wrong }}" />
+            <input type="hidden" name="correct" value="{{ correct }}" />
+            </div>
+            <div class = "col-4"> </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class = "col-7"> </div>
+            <div class = "col-2">
+                {% if questionNum != 1 %}
+                <input type="submit" value="prev" id="prevBtn" />
+                {% endif %}
+                <input type="submit" value="next" id="nextBtn" />
+            </div>
+            <div class = "col-3"> </div>
+        </div>
+        </form>
+    </div>
+
+{% endblock %}

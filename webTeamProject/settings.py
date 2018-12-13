@@ -25,7 +25,7 @@ SECRET_KEY = '=hx%eo)%q)s_elk7e_i4pym$%p6@g-_%my!4q_%@4v-zrqwf#g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.pythonanywhere.com' ]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.pythonanywhere.com', 'cau20162990.iptime.org' ]
 
 # Auth settings
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'sugang',
     'Vocabulary',
     'word',
+    'wordTest'
 ]
 
 MIDDLEWARE = [
