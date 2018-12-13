@@ -27,9 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.pythonanywhere.com' ]
 
-MEDIA_ROOT = os.path.realpath(os.path.join(BASE_DIR, '../media'))
-MEDIA_URL = '/media/'
-UPLOAD_MEDIA_URL = '/media/upload/'
 
 # Application definition
 

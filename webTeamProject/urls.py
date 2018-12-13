@@ -30,4 +30,4 @@ urlpatterns = [
     #path('Video/', include('Video.urls')),
     #path('Vocabulary/', include('Vocabulary.urls')),
     #path('word/', include('word.urls')),
-]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+]
