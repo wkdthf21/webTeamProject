@@ -3,4 +3,5 @@ from .models import *
 
 # Register your models here.
 
-admin.site.register(Word)
+admin.site.register(Test)
+admin.site.register(Review)

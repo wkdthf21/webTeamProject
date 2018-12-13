@@ -8,3 +8,6 @@
 
 # python temp file
 *pyc
+
+## pycache files ##
+*/__pycache__/*
