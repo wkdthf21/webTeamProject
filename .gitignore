@@ -11,3 +11,6 @@
 
 ## pycache files ##
 */__pycache__/*
+
+## DB file ##
+db.sqlite3

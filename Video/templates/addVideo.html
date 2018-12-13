@@ -1,0 +1,41 @@
+{% extends 'header.html' %}
+{% block content %}
+<br/>
+<br/>
+<form class="addVideo" action="/Video/process_addVideo" method="POST">
+<div class = "container addVideoContainer">
+  {% csrf_token %}
+  <div class = "row">
+    <div class = "col-2">
+    </div>
+    <div class = "col-8">
+        <div class = "form-group">
+          <label>Video Title</label>
+          <textarea class="form-control" name="Title" rows="1" placeholder="Your Video Title Here"></textarea>
+          <br/>
+          <label>Video URL</label>
+          <input class="form-control" name="URL" type="text" placeholder="ex) https://youtu.be/6Uk5CIm4IPI">
+          <br/>
+          <label>Video Caption</label>
+          <textarea class="form-control" name="Caption" rows="10" placeholder="Enter your Video's Captions"></textarea>
+        </div>
+    </div>
+    <div class = "col-2">
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <div class = "row">
+    <div class = "col-9">
+    </div>
+    <div class = "col-2">
+      <button type="submit" name="addVideo" value="save" class="btn btn-outline-secondary">저장</button>
+      <button type="submit" name="addVideo" value="cancel" class="btn btn-outline-info">취소</button>
+    </div>
+    <div class = "col-1">
+    </div>
+  </div>
+</div>
+</form>
+
+{% endblock %}

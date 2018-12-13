@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '.pythonanywhere.com', 'cau20162990.iptime.org' ]
 
+# Auth settings
+LOGIN_REDIRECT_URL = '/accounts/'
 
 # Application definition
 
