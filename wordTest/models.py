@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Test(models.Model):
-    #test_id = models.IntegerField(primary_key=True)
     test_date = models.DateTimeField(default=timezone.now)
     u_id = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField()

@@ -18,13 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    #path('', include('Main.urls')),
-    #path('account/', include('accounts.urls')),
-=======
     path('', include('Main.urls')),
     path('account/', include('accounts.urls')),
->>>>>>> wordTest
     #path('classroom/', include('classroom.urls')),
     path('Main/', include('Main.urls')),
     #path('News/', include('News.urls')),
