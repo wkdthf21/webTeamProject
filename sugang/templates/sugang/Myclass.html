@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>나의 강의실</title>
+</head>
+<body>
+<p>{{ user.username }}님, 강의실에 오신 것을 환영합니다.</p>
+<br>
+{{user.id}}
+{% if instructor %}
+{{ instructor.i_id.id }}
+{{ user.username }}
+<table>
+    <thead>강의 목록</thead>
+    <tr>
+        <th>분류</th>
+        <th>강의 이름</th>
+        <th>강의 교재</th>
+        <th>강의실</th>
+    </tr>
+
+        {% for subject in subjects %}
+        {{ subject.i_name.id }}
+        {% if instructor.id == subject.i_name.id %}
+    <tr>
+        <td>{{ subject.sub_categorize|upper }}</td>
+        <td>{{ subject.sub_name|upper }}</td>
+        <td>{{ subject.book|upper }}</td>
+        <td>
+            <form action="/classroom/{{subject.id}}/" method="POST">
+                {% csrf_token %}
+                <input name="link" type="hidden" value="{{subject.id}}">
+        <td>
+            <input type="button" value="강의실로 이동" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+            </form>
+        </td>
+    </tr>
+        {% endif %}
+        {% endfor %}
+</table>
+
+{% else %}
+<!--{{ instructor.i_id }}
+{{ user.username }}-->
+    <table>
+    <thead>수강 목록</thead>
+    <tr>
+        <th>분류</th>
+        <th>강의 이름</th>
+        <th>강사 이름</th>
+        <th>레벨</th>
+    </tr>
+
+        {% for take in takes %}
+        {% for subject in subjects %}
+        {% if take.subject.id == subject.id %}
+    <tr>
+        <td>{{ subject.sub_categorize}}</td>
+        <td>{{ subject.sub_name }}</td>
+        <td>{{ subject.i_name.name}}</td>
+        <td>{{ subject.lecture_level}}</td>
+        <td><input type="button" value="강의실로 이동" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+    </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+</table>
+{% endif %}
+    <br><br>
+    <input id="prev" type="button" name="prev" value="수강 신청 페이지로" onclick="location.href='/sugang/'">
+</body>
+</html>
