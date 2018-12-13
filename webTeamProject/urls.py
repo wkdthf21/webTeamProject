@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     #path('account/', include('accounts.urls')),
     path('classroom/', include('classroom.urls')),
     #path('Main/', include('Main.urls')),
@@ -29,5 +30,16 @@ urlpatterns = [
     path('sugang/', include('sugang.urls')),
     #path('Video/', include('Video.urls')),
     #path('Vocabulary/', include('Vocabulary.urls')),
+=======
+    path('News/', include('News.urls')),
+    path('', include('Main.urls')),
+    path('account/', include('accounts.urls')),
+    #path('classroom/', include('classroom.urls')),
+    path('Main/', include('Main.urls')),
+    #path('sugang/', include('sugang.urls')),
+    path('Vocabulary/', include('Vocabulary.urls')),
+    path('Video/', include('Video.urls')),
+>>>>>>> ccca456816a81361360a1da1e93cd0b8b8f23f8b
     #path('word/', include('word.urls')),
+    path('test/', include('wordTest.urls')),
 ]
