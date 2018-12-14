@@ -10,7 +10,7 @@ def Main(request):
     if 'userId' in request.session :
         userId = request.session['userId']
         print('2')
-        
+
         # 로그아웃 요청
         if request.method == "POST":
 
