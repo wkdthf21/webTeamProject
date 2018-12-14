@@ -1,8 +1,10 @@
 {% extends 'header.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/classroom.css' %}"/>
 
-<div class = "container classroom">
+<div class = "container classroomOpen">
     <div class="vertical-align:middle">
         <div class="centering text-center">
             <p>글 열람</p>
@@ -17,12 +19,16 @@
                     <td>내용</td>
                     <td>{{ board.content }}</td>
                 </tr>
-                {% if board.file %}
                 <tr>
                     <td>첨부파일</td>
+                    {% if board.file %}
+
                     <td><a id="id_uploaded_file" href="{{ board.file.url }}" download>{{ board.file.name }}</a></td>
+                    {% else %}
+                    <td>없음</td>
+                    {% endif %}
+
                 </tr>
-                {% endif %}
                 {% endif %}
             </table>
 
@@ -30,12 +36,12 @@
 <div class="col-4-1">
         <form  action="/classroom/{{subject.id}}/{{board.id}}/delete" method="POST">
         {% csrf_token %}
-            <input type="submit" class="btn btn-primary" value="글 삭제">
+            <input type="submit" class="btn btn-outline-danger" value="글 삭제">
         </form>
 </div>
             <br>
             <div class="col-4-2">
-                <input type="button" value="돌아가기" class="btn" onclick="location.href='/classroom/{{subject.id}}/'">
+                <input type="button" value="돌아가기" class="btn Cbtn" onclick="location.href='/classroom/{{subject.id}}/'">
             </div>
 </div>
 

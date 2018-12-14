@@ -1,6 +1,8 @@
 {% extends 'header.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/sugang.css' %}"/>
 
 <div class="container SugangAddNewClass">
     <div class="centering text-center">
@@ -17,7 +19,7 @@
         <p>강의 레벨: {{ form.lecture_level }}</p><br>
         <p>강의 교재: {{ form.book }}</p><br><br><br>
         {{ form.i_name.as_hidden }}
-        <input type="submit" class="btn" value="개설"/>
+        <input type="submit" class="btn Sbtn" value="개설"/>
     </form>
 
 

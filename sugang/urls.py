@@ -10,6 +10,8 @@ urlpatterns = [
      path('signInstructor/', views.SignInstructor, name='Sign,Instructor'),
      path('thanks/', views.thanks, name='Thanks'),
      path('myclass/', views.myclass, name='Myclass'),
+     url(r'^(?P<take_id>\d+)/delete$', views.delete, name='delete'),
+
 ]
 
 

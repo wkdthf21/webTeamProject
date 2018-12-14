@@ -1,13 +1,15 @@
 {% extends 'header.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/classroom.css' %}"/>
 
-<div class = "container classroom">
+<div class = "container classroomDelete">
     <div class="vertical-align:middle">
         <div class="centering text-center">
 <p>글이 정상적으로 삭제되었습니다.</p>
 <br>
-<input type="button" value="돌아가기" class="btn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+<input type="button" value="돌아가기" class="btn Cbtn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
         </div>
     </div>
 </div>

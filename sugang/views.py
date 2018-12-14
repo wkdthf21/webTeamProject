@@ -44,6 +44,15 @@ def thanks(request):
     template_name='sugang/Thanks.html'
     return render(request,template_name)
 
+def delete(request,take_id):
+    template_name = 'sugang/delete.html'
+    take = Take.objects.get(pk=take_id)
+
+    if request.method == 'POST':
+        take.delete();
+        return render(request, template_name)
+    else:
+        return render(request, template_name)
 
 def myclass(request):
     template_name='sugang/Myclass.html'
@@ -58,6 +67,7 @@ def myclass(request):
     else:
         instructor = None
         context = {'takes': takes, 'subjects':subjects, 'user':user,'instructor': instructor}
+
     return render(request, template_name, context)
 
 

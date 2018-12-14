@@ -1,6 +1,8 @@
 {% extends 'header.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/sugang.css' %}"/>
 
 <div class = "container SugangMain">
     <div class="vertical-align:middle">
@@ -15,13 +17,13 @@
 <br>
         <div class="row">
             <div class="col-1">
-                <input id="add" type="button" class="btn" name="add" value="강의 개설" onclick="location.href='/sugang/addclass/'">
+                <input id="add" type="button" class="btn Sbtn" name="add" value="강의 개설" onclick="location.href='/sugang/addclass/'">
             </div>
         </div>
         <div class="row"></div>
         <div class="row">
             <div class="col-1">
-                <input id="in_go" type="button"  class="btn" name="list" value="강의 목록" onclick="location.href='/sugang/myclass/'">
+                <input id="in_go" type="button"  class="btn Sbtn" name="list" value="강의 목록" onclick="location.href='/sugang/myclass/'">
             </div>
         </div>
 
@@ -32,12 +34,12 @@
 <div class="row">
 <div class="col-1">
 
-    <input id="In_sign" type="button" name="In_sign" class="btn" value="강사 전환" onclick="location.href='/sugang/signInstructor/'">
+    <input id="In_sign" type="button" name="In_sign" class="btn Sbtn" value="강사 전환" onclick="location.href='/sugang/signInstructor/'">
 </div></div>
     <div class="row"></div>
     <div class="row">
     <div class="col-1">
-        <input id="st_go" type="button"  name="prev" class="btn" value="나의 강의실" onclick="location.href='/sugang/myclass/'">
+        <input id="st_go" type="button"  name="prev" class="btn Sbtn" value="나의 강의실" onclick="location.href='/sugang/myclass/'">
     </div>
     </div>
 
@@ -58,6 +60,7 @@
         <th>레벨</th>
         <th>{% if not instructor %}수강신청{% endif %}</th>
     </tr>
+        {%if subjects %}
         {% for subject in subjects %}
         <form  action="" method="POST">
         {% csrf_token %}
@@ -71,14 +74,17 @@
         <td>
             {% if not instructor %}
             <input name="sign" type="hidden" value="{{subject.id}}">
-            <input type="submit" class = "btn" value="수강 신청">
+            <input type="submit" class = "btn Sbtn" value="수강 신청">
             {% endif %}
         </td>
     </tr>
 
 </form>
     {% endfor %}
-
+    {% endif %}
+    {% if not subjects %}
+    <p>강의가 존재하지 않습니다.</p>
+    {% endif%}
 </table></div>
         </div>
 

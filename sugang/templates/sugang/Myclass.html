@@ -1,8 +1,10 @@
 {% extends 'header.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/sugang.css' %}"/>
 
-<div class = "container SugangMain">
+<div class = "container SugangMyclass">
     <div class="vertical-align:middle">
         <div class="centering text-center">
 <h4>{{ user.username }}님, 강의실에 오신 것을 환영합니다.</h4>
@@ -22,7 +24,7 @@
         <th>강의실</th>
         <th></th>
     </tr>
-
+        {%if subjects %}
         {% for subject in subjects %}
         <!--{{ subject.i_name.id }}-->
         {% if instructor.id == subject.i_name.id %}
@@ -34,13 +36,17 @@
             <form action="/classroom/{{subject.id}}/" method="POST">
                 {% csrf_token %}
                 <input name="link" type="hidden" value="{{subject.id}}">
-        <td>
-            <input type="button" value="강의실로 이동" class="btn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+
+            <input type="button" value="강의실로 이동" class="btn Sbtn" onclick="location.href='/classroom/{{subject.id}}/'">
             </form>
         </td>
     </tr>
         {% endif %}
         {% endfor %}
+    {%endif%}
+    {% if not subjects %}
+    <tr>강의가 없습니다.</tr>
+    {% endif %}
 </table>
 
 {% else %}
@@ -54,9 +60,12 @@
         <th>강사 이름</th>
         <th>레벨</th>
         <th></th>
+        <th></th>
     </tr>
+        {% if takes %}
 
         {% for take in takes %}
+        {% if subjects %}
         {% for subject in subjects %}
         {% if take.subject.id == subject.id %}
     <tr>
@@ -64,15 +73,27 @@
         <td>{{ subject.sub_name }}</td>
         <td>{{ subject.i_name.name}}</td>
         <td>{{ subject.lecture_level}}</td>
-        <td><input type="button" value="강의실로 이동" class="btn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+        <td><input type="button" value="강의실로 이동" class="btn Sbtn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+        <td>
+            <form  action="/sugang/{{take.id}}/delete" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary Sbtn" value="수강 목록에서 삭제">
+            </form>
+        </td>
     </tr>
         {% endif %}
         {% endfor %}
+        {% endif %}
         {% endfor %}
+        {% endif %}
+        {% if not takes %}
+        <tr>강의가 없습니다.</tr>
+        {% endif %}
 </table>
 {% endif %}
+
     <br><br>
-    <input id="prev" type="button" name="prev" class="btn" value="수강 신청 페이지로" onclick="location.href='/sugang/'">
+    <input id="prev" type="button" name="prev" class="btn Sbtn" value="수강 신청 페이지로" onclick="location.href='/sugang/'">
             <br><br><br><br>
 
     </div>
