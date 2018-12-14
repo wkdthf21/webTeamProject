@@ -13,16 +13,19 @@ MEAN = 1
 # Create your views here.
 def test_main(request):
     if 'userId' in request.session :
+        user = get_user_model()
         userId = request.session['userId']
+        words = Word.objects.filter(u_id=user.objects.get(username=userId))
+        maxQues = 5
+        if len(words) < 5:
+            maxQues = len(words)
 
-        return render(request, 'wordTest/main.html', {'userId' : userId})
+        return render(request, 'wordTest/main.html', {'userId' : userId,
+                                                      'quesNum': maxQues,})
 
     else:
         redirect_to = reverse('Login')
         return HttpResponseRedirect(redirect_to)
-
-def test_result(request, correct, wrong):
-    ret
 
 def word_test(request):
     if 'userId' in request.session :
@@ -70,7 +73,7 @@ def word_test(request):
 
                 if quesNum == maxQues:
                     me = user.objects.get(username=userId)
-                    score = int((len(correct) / len(wrong) + len(correct)) * 100)
+                    score = int(len(correct)/maxQues * 100)
                     Test.objects.create(test_date=timezone.now(), u_id=me, score=score)
 
                     for wrong_word in set(wrong):
@@ -79,7 +82,8 @@ def word_test(request):
                     return render(request, 'result/result.html',
                                             {'userId': userId,
                                              'correct': len(correct),
-                                             'wrong': len(wrong),})
+                                             'wrong': len(wrong),
+                                             'score': score,})
 
         return render(request, 'wordTest/test.html',
                                 {'userId' : userId,

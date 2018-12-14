@@ -119,4 +119,3 @@ def SignInstructor(request):
         form = SignForm(initial={'i_id': user.id})
     context = {'form': form,'user':user}
     return render(request, template_name,context)
-

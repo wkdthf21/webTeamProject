@@ -13,5 +13,3 @@ urlpatterns = [
      url(r'^(?P<take_id>\d+)/delete$', views.delete, name='delete'),
 
 ]
-
-
