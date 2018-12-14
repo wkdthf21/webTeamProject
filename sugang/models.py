@@ -32,7 +32,6 @@ class Subject(models.Model):
 
     sub_categorize = models.CharField(max_length=10,choices=SUB_CHOICES,default='토익')
     sub_name = models.CharField(max_length=30)
-    sub_code = models.CharField(max_length=10, null=False)
     i_name = models.ForeignKey('Instructor', on_delete=models.CASCADE)
     total_lecture = models.IntegerField(default=0)
     lecture_level = models.CharField(max_length=10, choices=LEVEL_CHOICES,default='공통')
