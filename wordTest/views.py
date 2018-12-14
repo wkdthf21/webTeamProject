@@ -12,78 +12,91 @@ MEAN = 1
 
 # Create your views here.
 def test_main(request):
-    userId = isUserId(request)
-
-    return render(request, 'wordTest/main.html', {'userId' : userId})
-
-def test_result(request, correct, wrong):
-    ret
-
-def word_test(request):
-    userId = isUserId(request)
-    isAskSpell = questionType()
-    questionWord = ""
-
-    user = get_user_model()
-    words = Word.objects.filter(u_id=user.objects.get(username=userId))
-    quesIndexs = getQuestions(words)
-
-    if isDataNotExist(quesIndexs):
-        NotExistSavedWord()
-
-    quesNum=0
-    word = Word.objects.get(word_id=quesIndexs[quesNum])
-    indexs = getRandomNumbers(Word.objects.all(), quesIndexs[quesNum])
-    indexs.append(quesIndexs[quesNum])
-    random.shuffle(indexs)
-    numbers = []
-    wrong = []
-    correct = []
-
-    for i in indexs:
-        temp = Word.objects.get(word_id=i)
-        numbers.append(temp)
-
-    if request.method == 'POST':
-        selector = request.POST['num']
-        quesId = request.POST['quesId']
-        quesNum = int(request.POST['quesNum'])
-        wrong = ast.literal_eval(request.POST['wrong'])
-        correct = ast.literal_eval(request.POST['correct'])
-
-
-        if selector != quesId:
-            wrong.append(quesId)
-
-        else:
-            correct.append(quesId)
-
+    if 'userId' in request.session :
+        user = get_user_model()
+        userId = request.session['userId']
+        words = Word.objects.filter(u_id=user.objects.get(username=userId))
         maxQues = 5
         if len(words) < 5:
             maxQues = len(words)
 
-        if quesNum == maxQues:
-            me = user.objects.get(username=userId)
-            score = int((len(correct) / len(wrong) + len(correct)) * 100)
-            Test.objects.create(test_date=timezone.now(), u_id=me, score=score)
+        return render(request, 'wordTest/main.html', {'userId' : userId,
+                                                      'quesNum': maxQues,})
 
-            for wrong_word in set(wrong):
-                Review.objects.create(test_id =Test.objects.latest('pk'), wrong_word_id=Word.objects.get(word_id=wrong_word))
+    else:
+        redirect_to = reverse('Login')
+        return HttpResponseRedirect(redirect_to)
 
-            return render(request, 'result/result.html',
+def word_test(request):
+    if 'userId' in request.session :
+        userId = request.session['userId']
+
+        isAskSpell = questionType()
+        questionWord = ""
+
+        user = get_user_model()
+        words = Word.objects.filter(u_id=user.objects.get(username=userId))
+        quesIndexs = getQuestions(words)
+
+        if isDataNotExist(quesIndexs):
+            NotExistSavedWord()
+
+        quesNum=0
+        word = Word.objects.get(word_id=quesIndexs[quesNum])
+        indexs = getRandomNumbers(Word.objects.all(), quesIndexs[quesNum])
+        indexs.append(quesIndexs[quesNum])
+        random.shuffle(indexs)
+        numbers = []
+        wrong = []
+        correct = []
+
+        for i in indexs:
+            temp = Word.objects.get(word_id=i)
+            numbers.append(temp)
+
+            if request.method == 'POST':
+                selector = request.POST['num']
+                quesId = request.POST['quesId']
+                quesNum = int(request.POST['quesNum'])
+                wrong = ast.literal_eval(request.POST['wrong'])
+                correct = ast.literal_eval(request.POST['correct'])
+
+                if selector != quesId:
+                    wrong.append(quesId)
+
+                else:
+                    correct.append(quesId)
+
+                maxQues = 5
+                if len(words) < 5:
+                    maxQues = len(words)
+
+                if quesNum == maxQues:
+                    me = user.objects.get(username=userId)
+                    score = int(len(correct)/maxQues * 100)
+                    Test.objects.create(test_date=timezone.now(), u_id=me, score=score)
+
+                    for wrong_word in set(wrong):
+                        Review.objects.create(test_id =Test.objects.latest('pk'), wrong_word_id=Word.objects.get(word_id=wrong_word))
+
+                    return render(request, 'result/result.html',
                                             {'userId': userId,
                                              'correct': len(correct),
-                                             'wrong': len(wrong),})
+                                             'wrong': len(wrong),
+                                             'score': score,})
 
-    return render(request, 'wordTest/test.html',
+        return render(request, 'wordTest/test.html',
                                 {'userId' : userId,
                                  'isAskSpell': isAskSpell,
                                  'questionNum': quesNum+1,
                                  'correct': correct,
                                  'wrong': wrong,
                                  'word': word,
-                                 'numbers': numbers,
-    })
+                                 'numbers': numbers,})
+
+    else:
+        redirect_to = reverse('Login')
+        return HttpResponseRedirect(redirect_to)
 
 
 def getQuestions(words):
@@ -114,16 +127,6 @@ def getRandomNumbers(AllObj, id):
             result.append(word.word_id)
             if len(result) == 4:
                 return result
-
-def isUserId(request):
-    # 로그인을 한 상태
-    if 'userId' in request.session :
-        userId = request.session['userId']
-        return userId
-
-    else:
-        redirect_to = reverse('Login')
-        return HttpResponseRedirect(redirect_to)
 
 def questionType():
     return random.randrange(SPELL, MEAN)
