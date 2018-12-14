@@ -8,6 +8,7 @@
         <div class="row">
             <div class="col-4"> </div>
             <div class="col-4">
+                <form action="{% url 'result' %}" method="POST">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">테스트 결과</h3>
@@ -17,11 +18,15 @@
                         정답: {{ correct }}<br />
                         오답: {{ wrong }}<br />
                         총점: {{ score }}<br /><br />
-                        <a href=""><input type="button" value="복습하기" /></a>
+                        <input type="hidden" name="wrongList" value="{{ wrongList }}" />
+                        <input type="hidden" name="testPk" value="{{ testPk }}" />
+                        {% csrf_token %}
+                        <input type="submit" value="복습하기" />
                         <a href="/Main"><input type="button" value="메인으로" /></a>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
             <div class="col-4"> </div>
         </div>

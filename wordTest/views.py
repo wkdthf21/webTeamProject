@@ -27,6 +27,33 @@ def test_main(request):
         redirect_to = reverse('Login')
         return HttpResponseRedirect(redirect_to)
 
+def result(request):
+    if 'userId' in request.session :
+        userId = request.session['userId']
+        if request.method == 'POST':
+            wrong = ast.literal_eval(request.POST['wrongList'])
+            userId = request.session['userId']
+            pk = request.POST['testPk']
+            words = Word.objects
+            test = Test.objects
+            print("Wrong: ", wrong)
+        return render(request, 'result/review.html', {'userId': userId,
+                                                      'wrong': wrong,
+                                                      'words': words,
+                                                      'test': test,
+                                                      'pk': pk})
+    else:
+        redirect_to = reverse('Login')
+        return HttpResponseRedirect(redirect_to)
+
+def review(request):
+    if 'userId' in request.session :
+        userId = request.session['userId']
+        return render(request, 'result/review.html', {'userId': userId})
+    else:
+        redirect_to = reverse('Login')
+        return HttpResponseRedirect(redirect_to)
+
 def word_test(request):
     if 'userId' in request.session :
         userId = request.session['userId']
@@ -76,14 +103,17 @@ def word_test(request):
                     me = user.objects.get(username=userId)
                     score = int(len(correct)/maxQues * 100)
                     Test.objects.create(test_date=timezone.now(), u_id=me, score=score)
+                    pk = Test.objects.latest('test_id').test_id
 
                     for wrong_word in set(wrong):
                         Review.objects.create(test_id =Test.objects.latest('pk'), wrong_word_id=Word.objects.get(word_id=wrong_word))
 
                     return render(request, 'result/result.html',
                                             {'userId': userId,
+                                             'wrongList': wrong,
                                              'correct': len(correct),
                                              'wrong': len(wrong),
+                                             'testPk': pk,
                                              'score': score,})
 
         return render(request, 'wordTest/test.html',
