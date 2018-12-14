@@ -32,4 +32,4 @@ urlpatterns = [
     path('Video/', include('Video.urls')),
     #path('word/', include('word.urls')),
     path('test/', include('wordTest.urls')),
-]
+]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

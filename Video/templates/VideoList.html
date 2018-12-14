@@ -1,5 +1,9 @@
 {% extends 'header.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/Video.css' %}"/>
+
+    <br/>
     <br/>
     <!-- Search and VideoList Table -->
     <div class = "container VideoBody">
@@ -12,7 +16,7 @@
           <div class="input-group mb-3">
             <input type="text" class="form-control" name="q" value="{{q}}" placeholder="Video Title" aria-label="Recipient's username" aria-describedby="button-addon2">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit" id="Search">Search</button>
+              <button class="btn btn-outline-info Vbutton" type="submit" id="Search">Search</button>
             </div>
           </div>
           </form>
@@ -57,7 +61,7 @@
         <div class = "col-9">
         </div>
         <div class = "col-1">
-          <button type="submit" name = "mode" value = "Add" class="btn btn-outline-secondary">Add Video</button>
+          <button type="submit" name = "mode" value = "Add" class="btn btn-outline-info Vbutton">Add Video</button>
         </div>
         <div class = "col-2">
         </div>
