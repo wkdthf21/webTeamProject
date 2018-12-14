@@ -1,17 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>강사 전환</title>
-</head>
-<body>
-    <h1>강사 전환</h1>
+{% extends 'header.html' %}
+
+{% block content %}
+
+<div class="container SignInstructor">
+    <div class="centering text-center">
+
+    <h1>강사 전환</h1><br><br><br>
 <!--{{ user.id }}-->
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="전환"/>
+        <p>강사 이름  </p>
+        {{ form.name }}<br><br>
+        <p>비밀번호 확인  </p>
+        {{ form.i_pw }}<br>
+        {{ form.i_id.as_hidden}}<br><br><br>
+        <input type="submit" class="btn" value="전환"/>
     </form>
+    </div>
+</div>
 
-</body>
-</html>
+{% endblock %}

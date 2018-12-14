@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>개설 완료</title>
-</head>
-<body>
+{% extends 'header.html' %}
 
-    <p>강의가 정상적으로 개설되었습니다.</p>
+{% block content %}
+<div class="Thanks">
+    <div class="centering text-center">
+
+        <p>강의가 정상적으로 개설되었습니다.</p><br>
     <input type="button" id="prev" value="돌아가기" onclick="location.href='/sugang/'">
-</body>
-</html>
+    </div>
+</div>
+
+{% endblock %}

@@ -6,6 +6,9 @@ from .forms import BoardForm
 from django.http import HttpResponse
 
 # Create your views here.
+def Enter(request):
+    template_name='enterclass.html'
+    return render(request, template_name)
 
 def Classroom(request,subject_id):
     template_name='classroom.html'

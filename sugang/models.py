@@ -36,7 +36,7 @@ class Subject(models.Model):
     i_name = models.ForeignKey('Instructor', on_delete=models.CASCADE)
     total_lecture = models.IntegerField(default=0)
     lecture_level = models.CharField(max_length=10, choices=LEVEL_CHOICES,default='공통')
-    book = models.CharField(max_length=20)
+    book = models.CharField(max_length=20,default="없음")
 
     def __unicode__(self):
         return self.sub_name
@@ -56,4 +56,4 @@ class Instructor(models.Model):
     i_pw = models.CharField(max_length=30)
 
     def __unicode__(self):
-        return self.i_name
+        return self.name

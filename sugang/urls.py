@@ -13,4 +13,3 @@ urlpatterns = [
 ]
 
 
-#(?P<subject_id>\d+)/$

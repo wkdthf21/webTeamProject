@@ -1,20 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>수강 신청 메인 페이지</title>
-</head>
+{% extends 'header.html' %}
 
-<body>
+{% block content %}
+
+<div class = "container SugangMain">
+    <div class="vertical-align:middle">
+        <div class="centering text-center">
+
 <h1>수강 신청</h1><br><br>
-<table>
-    <thead> 강의 목록 </thead>
+        </div>
+    {% if instructor %}
+
+<!--{{ instructor.i_id }}
+{{ user.username }}-->
+<br>
+        <div class="row">
+            <div class="col-1">
+                <input id="add" type="button" class="btn" name="add" value="강의 개설" onclick="location.href='/sugang/addclass/'">
+            </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-1">
+                <input id="in_go" type="button"  class="btn" name="list" value="강의 목록" onclick="location.href='/sugang/myclass/'">
+            </div>
+        </div>
+
+{% else %}
+<!--{{ instructor.i_id }}
+{{ user.username }}-->
+<br>
+<div class="row">
+<div class="col-1">
+
+    <input id="In_sign" type="button" name="In_sign" class="btn" value="강사 전환" onclick="location.href='/sugang/signInstructor/'">
+</div></div>
+    <div class="row"></div>
+    <div class="row">
+    <div class="col-1">
+        <input id="st_go" type="button"  name="prev" class="btn" value="나의 강의실" onclick="location.href='/sugang/myclass/'">
+    </div>
+    </div>
+
+{% endif %}
+        <div class="row">
+
+    <div class="col-2"></div>
+    <div class="col-7">
+
+        <div class="centering text-center">
+<table class = "table table-hover">
+    <thead></thead>
     <tr>
         <th>번호</th>
         <th>분류</th>
         <th>강의 이름</th>
         <th>강사 이름</th>
         <th>레벨</th>
+        <th>{% if not instructor %}수강신청{% endif %}</th>
     </tr>
         {% for subject in subjects %}
         <form  action="" method="POST">
@@ -29,34 +71,19 @@
         <td>
             {% if not instructor %}
             <input name="sign" type="hidden" value="{{subject.id}}">
-            <input type="submit" value="수강 신청">
+            <input type="submit" class = "btn" value="수강 신청">
             {% endif %}
         </td>
     </tr>
+
 </form>
     {% endfor %}
 
-</table>
+</table></div>
+        </div>
 
-{% if instructor %}
+</div>
 
-<!--{{ instructor.i_id }}
-{{ user.username }}-->
-<br>
-<input id="add" type="button" name="prev" value="강의 개설"
-    onclick="location.href='/sugang/addclass/'">
-<input id="in_go" type="button" name="prev" value="강의 목록"
-    onclick="location.href='/sugang/myclass/'">
-{% else %}
-<!--{{ instructor.i_id }}
-{{ user.username }}-->
-<br>
-    <input id="In_sign" type="button" name="In_sign" value="강사 전환"
-    onclick="location.href='/sugang/signInstructor/'">
-<input id="st_go" type="button" name="prev" value="나의 강의실로 이동"
-    onclick="location.href='/sugang/myclass/'">
-{% endif %}
+    </div></div>
 
-</body>
-
-</html>
+{% endblock %}

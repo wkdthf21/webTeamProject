@@ -12,8 +12,6 @@ urlpatterns = [
      path('uploaded/', views.Uploaded, name='uploaded'),
      url(r'^(?P<subject_id>\d+)/(?P<board_id>\d+)/$', views.Open, name='open'),
      url(r'^(?P<subject_id>\d+)/(?P<board_id>\d+)/delete$', views.Delete, name='delete'),
-
-     #path('upload/', views.Upload, name='upload'),
+     path('', views.Enter, name='enterclass'),
 
 ]
-#(?P<subject_id>\d+)/$
