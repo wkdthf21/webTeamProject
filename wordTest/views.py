@@ -31,7 +31,8 @@ def word_test(request):
     if 'userId' in request.session :
         userId = request.session['userId']
 
-        isAskSpell = questionType()
+        isAskSpell = random.randrange(0, 10)
+        print("Question Type: ", isAskSpell)
         questionWord = ""
 
         user = get_user_model()
@@ -87,7 +88,7 @@ def word_test(request):
 
         return render(request, 'wordTest/test.html',
                                 {'userId' : userId,
-                                 'isAskSpell': isAskSpell,
+                                 'isAskSpell': isAskSpell%2,
                                  'questionNum': quesNum+1,
                                  'correct': correct,
                                  'wrong': wrong,
@@ -127,9 +128,6 @@ def getRandomNumbers(AllObj, id):
             result.append(word.word_id)
             if len(result) == 4:
                 return result
-
-def questionType():
-    return random.randrange(SPELL, MEAN)
 
 def NotExistSavedWord():
     redirect_to = reverse('TestMain')
