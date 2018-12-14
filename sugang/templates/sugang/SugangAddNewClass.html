@@ -1,25 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>강의 개설 페이지</title>
-</head>
-<body>
+{% extends 'header.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/sugang.css' %}"/>
+
+<div class="container SugangAddNewClass">
+    <div class="centering text-center">
 <!--
 {{ instructor.id }}
 {{ instructor.name }}-->
     <h1>새 강의 개설</h1>
+    <br><br>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="개설"/>
+        <p>강의 분류: {{ form.sub_categorize }}</p><br>
+        <p>강의 이름: {{ form.sub_name }}</p><br>
+        <p>총 강의 수: {{ form.total_lecture }}</p><br>
+        <p>강의 레벨: {{ form.lecture_level }}</p><br>
+        <p>강의 교재: {{ form.book }}</p><br><br><br>
+        {{ form.i_name.as_hidden }}
+        <input type="submit" class="btn Sbtn" value="개설"/>
     </form>
 
 
 
 
+</div>
+</div>
 
-
-
-</body>
-</html>
+{% endblock %}
