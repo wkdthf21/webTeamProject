@@ -4,6 +4,7 @@ from word.models import Word
 from django.contrib.auth.models import User
 from .forms import PostForm
 import subprocess
+from py_translator import Translator
 from django.http import HttpResponse
 
 # Create your views here.
@@ -57,6 +58,7 @@ def my_vocabulary(request):
 
 
 def add_new_voca(request):
+    print("add_new_voca")
     # 로그인 했을 경우
     if 'userId' in request.session:
 
@@ -93,17 +95,18 @@ def translate(request):
 
         # 로그인 확인 후 원래 작업
         spell = request.GET.get('spell')
-        #form = PostForm(request.POST)
-        #spell = form.save(commit=False)
         print(spell)
 
         #google translate 사용
-        cmd = ['./translate', '-d', 'ko', '\"test\"']
+        '''cmd = ['python']
         result = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).stdout
-        output = result.read()
+        output = result.read().strip()
         result.close()
-        print(output)
-        context = {'mean' : '나비'}
+        print(output)'''
+        translator = Translator()
+        translated = translator.translate(spell, dest='ko')
+        print(spell + " : " + translated.text)
+        context = {'mean' : translated.text}
         return render(request, 'Vocabulary/translate.html', context)
 
     # 로그인 안했을 경우

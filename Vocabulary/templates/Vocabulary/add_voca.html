@@ -12,10 +12,10 @@
             <h2>New Vocabulary</h2>
             <form method="post" class="post-form">{% csrf_token %}
                 <p>
-                    Spell : <input type="text" id="word-spell" >
+                    Spell : <input type="text" name="word_spell" id="word-spell" >
                 </p>
                 <p id="mean">
-                    Meaning : <input type="text" id="word-mean" >
+                    Meaning : <input type="text" name="word_mean" id="word-mean" >
                 </p>
                 <button type="submit" class="save btn btn-default">Save</button>
             </form>
@@ -31,10 +31,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
     function find_meaning() {
-        alert("find_meaning!");
+        //alert("find_meaning!");
         var url = "/Vocabulary/my-vocabulary/add-new/translate?spell=";
         var spell = document.getElementById("word-spell").value;
-        alert(spell);
+        //alert(spell);
         var final_url = url + spell;
 
         $.ajax({
