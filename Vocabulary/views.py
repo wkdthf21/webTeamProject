@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, reverse, redirect
-from .models import *
+from django.template import RequestContext, loader
 from word.models import Word
 from django.contrib.auth.models import User
 from .forms import PostForm
+import subprocess
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -79,4 +81,33 @@ def add_new_voca(request):
         redirect_to = reverse('Main')
         return HttpResponseRedirect(redirect_to)
 
+
+def translate(request):
+    print("translate!!!")
+    # 로그인 했을 경우
+    if 'userId' in request.session:
+
+        userId = request.session['userId']
+        print(userId)
+        user = User.objects.get(username=userId)
+
+        # 로그인 확인 후 원래 작업
+        spell = request.GET.get('spell')
+        #form = PostForm(request.POST)
+        #spell = form.save(commit=False)
+        print(spell)
+
+        #google translate 사용
+        cmd = ['./translate', '-d', 'ko', '\"test\"']
+        result = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).stdout
+        output = result.read()
+        result.close()
+        print(output)
+        context = {'mean' : '나비'}
+        return render(request, 'Vocabulary/translate.html', context)
+
+    # 로그인 안했을 경우
+    else:
+        redirect_to = reverse('Main')
+        return HttpResponseRedirect(redirect_to)
 

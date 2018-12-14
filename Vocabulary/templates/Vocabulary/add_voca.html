@@ -11,9 +11,16 @@
         <div class="col-md-10 article-list">
             <h2>New Vocabulary</h2>
             <form method="post" class="post-form">{% csrf_token %}
-                {{ form.as_p }}
+                <p>
+                    Spell : <input type="text" id="word-spell" >
+                </p>
+                <p id="mean">
+                    Meaning : <input type="text" id="word-mean" >
+                </p>
                 <button type="submit" class="save btn btn-default">Save</button>
             </form>
+            <br/>
+            <button class="btn btn-default" onclick="find_meaning()">Find meaning</button>
 
         </div>
 
@@ -21,9 +28,24 @@
 
 </main>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
     function find_meaning() {
         alert("find_meaning!");
+        var url = "/Vocabulary/my-vocabulary/add-new/translate?spell=";
+        var spell = document.getElementById("word-spell").value;
+        alert(spell);
+        var final_url = url + spell;
+
+        $.ajax({
+            url : "{% url 'translate' %}",
+            type : "GET",
+            data : { 'spell': spell },
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            success:function(data){
+                $('#mean').html(data)
+            }
+        });
     }
 </script>
 
