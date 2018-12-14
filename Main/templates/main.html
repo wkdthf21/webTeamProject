@@ -1,19 +1,24 @@
 {% extends 'header.html' %}
 
 {% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <br/>
     <br/>
     <br/>
     <!-- Main Page -->
     <div class = "container VideoBody">
-      <!-- 4개의 메뉴 이미지 -->
       <div class = "row justify-content-md-center">
-        4개의 메뉴 이미지
+        <Button class="MenuBtn" onclick="location.href='/News'"><br/><img class="BtnImg" src="{% static 'img/news.png' %}"><br/><br/><br/>news</Button>
+        <Button class="MenuBtn" onclick="location.href='/Video/list'"><br/><img class="BtnImg" src="{% static 'img/video.png' %}"><br/><br/><br/>video</Button>
+        <Button class="MenuBtn" onclick="location.href='/Vocabulary'"><br/><img class="BtnImg" src="{% static 'img/voca.png' %}"><br/><br/>vocabulary</Button>
+        <Button class="MenuBtn" onclick="location.href='/classroom'"><br/><img class="BtnImg" src="{% static 'img/class.png' %}"><br/><br/><br/>Oneline class</Button>
+        <Button class="MenuBtn" onclick="location.href='/test'"><br/><img class="BtnImg" src="{% static 'img/test.png' %}"><br/><br/>Word Test</Button>
       </div>
       <br/>
       <br/>
     </div>
-    </form>
-</html>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 {% endblock %}
