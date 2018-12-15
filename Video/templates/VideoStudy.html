@@ -5,7 +5,6 @@
 <script type="text/javascript">
     function selectText() {
         var selectionText = "";
-
         if (document.getSelection) {
             selectionText = document.getSelection();
         } else if (document.selection) {
@@ -13,7 +12,6 @@
         }
         return selectionText;
     }
-
     document.onmouseup = function() {
         if (selectText()!=''){
             var word = selectText;
@@ -22,8 +20,32 @@
         }
     }
 </script>
+<style>
+  .video {
+      position: fixed!important;
+      padding-right: 1200px;
+      padding-top: 50px;
+  }
 
-    <br/>
+  .wordList {
+      position: fixed!important;
+      padding-right: 1200px;
+      padding-top: 300px;
+  }
+
+  .alertMessage{
+    position: fixed!important;
+    padding-right: 950px;
+  }
+
+  .SaveButton{
+    position: fixed!important;
+    padding-right: 1000px;
+    padding-top: 460px;
+  }
+
+  </style>
+  <br/>
     <br/>
     <form class="studyVideo" method="POST">
     {% csrf_token %}
@@ -39,12 +61,12 @@
             <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h6 class="card-title">Word List </h6>
-              <textarea id="WordList" name="WordList" rows="5" cols="30"></textarea>
+              <textarea id="WordList" name="WordList" rows="3" cols="30"></textarea>
             </div>
           </div>
           </div>
           <div class = "col-3 video">
-            <iframe width="448" height="252" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="403" height="226" src="{{videoRecord.video_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
           <div class = "col-3 SaveButton">
              <button class="btn btn-outline-danger" type = "submit" name="mode" value="Save"> Save </button><br/>
@@ -52,6 +74,8 @@
           <div class = "col-5">
           </div>
           <div id="caption" class = "col-4">
+            <br/>
+            <br/>
             {{captionRecord.text | linebreaks}}
           </div>
         </div>
