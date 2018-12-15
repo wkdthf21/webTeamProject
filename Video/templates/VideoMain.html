@@ -1,5 +1,9 @@
 {% extends 'header.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/Video.css' %}"/>
+
+    <br/>
     <br/>
     <br/>
     <!-- Video Main  -->
@@ -12,7 +16,7 @@
         </div>
         <div class = "col-8">
           <h3>{{videoRecord.video_name}}</h3>
-          <button type="submit" class="btn btn-outline-secondary">Caption Edit</button>
+          <button type="submit" class="btn btn-outline-secondary Vbutton">Caption Edit</button>
         </div>
         <div class = "col-2">
         </div>
@@ -40,10 +44,10 @@
         <div class = "col-4">
         </div>
         <div class = "col-1">
-          <button type="submit" name="mode" value = "Start" class="btn btn-outline-secondary">Start</button>
+          <button type="submit" name="mode" value = "Start" class="btn btn-outline-danger">Start</button>
         </div>
         <div class = "col-1">
-          <button type="submit" name = "mode" value = "Back" class="btn btn-outline-secondary">Back</button>
+          <button type="submit" name = "mode" value = "Back" class="btn btn-outline-success">Back</button>
         </div>
         <div class = "col-5">
         </div>

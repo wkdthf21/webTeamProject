@@ -1,0 +1,8 @@
+.Vbutton{
+  border-color: #007BB2;
+  color : #007BB2;
+}
+
+.Vbutton:hover{
+  background: #007BB2;
+}

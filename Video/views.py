@@ -187,19 +187,22 @@ def VideoMain(request, video_id):
 
         if request.method == 'POST' :
 
-            mode = request.POST['mode']
-
             # 공부 시작
-            if mode == "Start" :
+            if request.POST.get('mode','') == "Start" :
 
                 redirect_to = reverse('VideoStudy', kwargs={'video_id':video_id})
                 return HttpResponseRedirect(redirect_to)
 
 
             # 비디로 리스트
-            elif mode == "Back":
+            elif request.POST.get('mode','') == "Back":
 
                 redirect_to = reverse('VideoList')
+                return HttpResponseRedirect(redirect_to)
+
+
+            elif request.POST.get('Sign','') == "로그아웃":
+                redirect_to = reverse('Logout')
                 return HttpResponseRedirect(redirect_to)
 
         # 강사이면 자막 수정 버튼 활성화 ( 수정 )
@@ -226,6 +229,12 @@ def addVideo(request):
 
         # 강사인지 확인하는 법 고민 ( 수정 )
 
+        if request.method == 'POST':
+
+            if request.POST.get('Sign','') == "로그아웃":
+                redirect_to = reverse('Logout')
+                return HttpResponseRedirect(redirect_to)
+
         return render(request, 'addVideo.html', {'userId' : userId})
 
 
@@ -242,6 +251,7 @@ def process_addVideo(request):
 
     # 로그인 안했을 경우
     if not 'userId' in request.session :
+
         redirect_to = reverse('Main')
         return HttpResponseRedirect(redirect_to)
 
@@ -251,10 +261,10 @@ def process_addVideo(request):
 
     if request.method == 'POST':
 
-        mode = request.POST['addVideo']
-
+        print(request.POST)
         # 저장을 누른 경우
-        if mode == "save" :
+
+        if request.POST.get('mode','') == "save" :
 
             Title = request.POST['Title']
 
@@ -278,8 +288,13 @@ def process_addVideo(request):
             return HttpResponseRedirect(redirect_to)
 
         # 취소를 누른 경우
-        elif mode == "cancel":
+        elif request.POST.get('mode','') == "cancel":
             redirect_to = reverse('VideoList')
+            return HttpResponseRedirect(redirect_to)
+
+
+        elif request.POST.get('Sign','') == "로그아웃":
+            redirect_to = reverse('Logout')
             return HttpResponseRedirect(redirect_to)
 
 
@@ -324,7 +339,7 @@ def process_editCaption(request):
     if request.method == 'POST':
 
         # 저장
-        if request.POST['mode'] == "Save":
+        if request.POST.get('mode','') == "Save":
 
             captionText = request.POST['captionText']
             video_id = request.POST['video_id']
@@ -337,11 +352,16 @@ def process_editCaption(request):
             return HttpResponseRedirect(redirect_to)
 
         # 취소
-        elif request.POST['mode'] == 'Cancel':
+        elif request.POST.get('mode','') == 'Cancel':
 
             video_id = request.POST['video_id']
 
             redirect_to = reverse('VideoMain', kwargs={'video_id':video_id})
+            return HttpResponseRedirect(redirect_to)
+
+
+        elif request.POST.get('Sign','') == "로그아웃":
+            redirect_to = reverse('Logout')
             return HttpResponseRedirect(redirect_to)
 
 
@@ -369,11 +389,14 @@ def VideoList(request):
         # Add Video 클릭
         if request.method == 'POST':
 
-            mode = request.POST['mode']
 
-            if mode == "Add":
+            if request.POST.get('mode','') == "Add" :
 
                 redirect_to = reverse('addVideo')
+                return HttpResponseRedirect(redirect_to)
+
+            elif request.POST.get('Sign','') == "로그아웃":
+                redirect_to = reverse('Logout')
                 return HttpResponseRedirect(redirect_to)
 
 
@@ -410,10 +433,8 @@ def VideoStudy(request, video_id):
 
         if request.method == 'POST':
 
-            mode = request.POST['mode']
-
             # 단어 저장을 눌렀을 경우
-            if mode == "Save":
+            if request.POST.get('mode','') == "Save":
 
                 wordList = request.POST['WordList']
 
@@ -426,6 +447,11 @@ def VideoStudy(request, video_id):
 
                         wordRecord = Word(word_spell=word, u_id=student)
                         wordRecord.save()
+
+
+            elif request.POST.get('Sign','') == "로그아웃":
+                redirect_to = reverse('Logout')
+                return HttpResponseRedirect(redirect_to)
 
 
 
