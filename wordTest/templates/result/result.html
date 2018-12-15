@@ -1,39 +1,37 @@
 {% extends 'header.html' %}
 
 {% block content %}
+    <br />
+    <br />
+    <br />
     <div class="container">
         <div class="row">
             <div class="col-4"> </div>
             <div class="col-4">
-                결과
-            </div>
-            <div class="col-4"> </div>
-        </div>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-4"> </div>
-            <div class="col-4">
-                정답: {{ correct }}
-            </div>
-            <div class="col-4"> </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-4"> </div>
-            <div class="col-4">
-                오답: {{ wrong }}
-            </div>
-            <div class="col-4"> </div>
-        </div>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-4"> </div>
-            <div class="col-4">
-                <a href="/Main"><input type="button" value="메인으로" /></a>
+                <form action="{% url 'result' %}" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">테스트 결과</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div style="text-align:center">
+                        정답: {{ correct }}<br />
+                        오답: {{ wrong }}<br />
+                        총점: {{ score }}<br /><br />
+                        <input type="hidden" name="wrongList" value="{{ wrongList }}" />
+                        <input type="hidden" name="testPk" value="{{ testPk }}" />
+                        {% csrf_token %}
+                        <input type="submit" value="복습하기" />
+                        <a href="/Main"><input type="button" value="메인으로" /></a>
+                        </div>
+                    </div>
+                </div>
+                </form>
             </div>
             <div class="col-4"> </div>
         </div>
     </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 {% endblock %}

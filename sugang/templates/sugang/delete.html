@@ -1,0 +1,16 @@
+{% extends 'header.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/sugang.css' %}"/>
+
+<div class = "container sugangDelete">
+    <div class="vertical-align:middle">
+        <div class="centering text-center">
+<p>수강 목록에서 정상적으로 삭제되었습니다.</p>
+<br>
+<input type="button" value="돌아가기" class="btn Sbtn" onclick="location.href='/sugang/myclass/'"></td>
+        </div>
+    </div>
+</div>
+{% endblock %}

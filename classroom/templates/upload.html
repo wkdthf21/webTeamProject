@@ -1,18 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>글 작성</title>
-</head>
-<body>
-    <h3>새 글 작성</h3>
-        {{ subject.id }}
+{% extends 'header.html' %}
 
+{% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/classroom.css' %}"/>
+
+<div class = "container classroomUpload">
+    <div class="vertical-align:middle">
+        <div class="centering text-center">
+    <h3>새 글 작성</h3><br>
     <form method="post" action="" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
+        <p>제목<p>
+        <p>{{ form.title }}<br></p>
+        <p>내용<p>
+        <p>{{ form.content }}<br></p>
+        <p>첨부파일<p>
+        <p>{{ form.file }}<br><br></p>
+
         {{ form.subject.as_hidden }}
-        {{ form.as_p }}
-        <button type="submit">완료</button>
+        <div class="row">
+            <div class="col-1">
+                <button class="btn btn-primary" type="submit">완료</button>
+            </div>
+            <div class="col-1">
+                <input type="button" value="돌아가기" class="btn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+
+            </div>
+        </div>
+
     </form>
-</body>
-</html>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

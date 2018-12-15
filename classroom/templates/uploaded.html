@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>글 작성 완료</title>
-</head>
-<body>
+{% extends 'header.html' %}
 
+{% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/classroom.css' %}"/>
+
+<div class = "container classroomUploaded">
+    <div class="vertical-align:middle">
+        <div class="centering text-center">
 <p>글이 정상적으로 작성되었습니다.</p>
 <br>
-<input type="button" value="돌아가기" onclick="location.href='/classroom/{{subject.id}}/'"></td>
-
-</body>
-</html>
+<input type="button" value="돌아가기" class="btn Cbtn" onclick="location.href='/classroom/{{subject.id}}/'"></td>
+        </div>
+    </div>
+</div>
+{% endblock %}

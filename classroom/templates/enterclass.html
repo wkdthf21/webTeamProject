@@ -1,0 +1,22 @@
+{% extends 'header.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/classroom.css' %}"/>
+
+<div class = "container classroomEnter">
+    <div class="vertical-align:middle">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="centering text-center">
+            <input type="button" name="prev" class="btn btn-dark btn-lg" value="수강 신청" onclick="location.href='/sugang/'">
+            <input type="button" name="go" class="btn btn-dark btn-lg" value="나의 강의실" onclick="location.href='/sugang/myclass/'">
+        </div>
+    </div>
+</div>
+{% endblock %}

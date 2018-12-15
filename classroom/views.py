@@ -6,6 +6,9 @@ from .forms import BoardForm
 from django.http import HttpResponse
 
 # Create your views here.
+def Enter(request):
+    template_name='enterclass.html'
+    return render(request, template_name)
 
 def Classroom(request,subject_id):
     template_name='classroom.html'
@@ -37,7 +40,6 @@ def Uploaded(request,subject_id):
     return render(request,template_name,context)
 
 def Upload(request,subject_id):
-    # 새 강의 개설 - 사용자가 교사일 때 수강신청 메인 화면에서 접근 가능
     template_name='upload.html'
     subject = Subject.objects.get(pk=subject_id)
 
@@ -53,12 +55,20 @@ def Upload(request,subject_id):
 
 
 def Open(request,board_id,subject_id):
-    # 새 강의 개설 - 사용자가 교사일 때 수강신청 메인 화면에서 접근 가능
     template_name='open.html'
+    user = User.objects.get(id=request.user.id)
     board = Board.objects.get(pk=board_id)
     subject = Subject.objects.get(pk=subject_id)
+    instructor = Instructor.objects.get(id = subject.i_name.id)
 
-    context = {'board' : board, 'subject':subject}
+    # 교사와 일반 사용자 구분
+    if instructor.i_id.id == user.id:
+        # 사용자가 해당 과목 강사 일 때 # 글쓰기 기능 활성화
+        instructor = Instructor.objects.get(i_id=user.id)
+        context = {'subject': subject, 'user': user, 'instructor': instructor, 'board': board}
+    else:
+        instructor = None
+        context = {'subject': subject, 'user': user, 'instructor': instructor, 'board': board}
     return render(request, template_name, context)
 
 

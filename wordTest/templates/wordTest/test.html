@@ -18,11 +18,15 @@
         <div class ="row">
             <div class = "col-3"> </div>
             <div class = "col-5">
-                {% if isAskSpell %}
-                    - {{ word.word_spell }}
-                {% else %}
-                    - {{ word.word_spell }}
-                {% endif %}
+                <div class="list-group">
+                    <li class="list-group-item">
+                        {% if isAskSpell %}
+                            - {{ word.word_mean }}
+                        {% else %}
+                            - {{ word.word_spell }}
+                        {% endif %}
+                    </li>
+                </div>
             </div>
             <div class= "col-4"> </div>
         </div>
@@ -55,7 +59,7 @@
             <div class = "col-7"> </div>
             <div class = "col-2">
                 {% if questionNum != 1 %}
-                <input type="submit" value="prev" id="prevBtn" />
+                <input type="button" value="prev" id="prevBtn" onClick="javascript:history.go(-1);"/>
                 {% endif %}
                 <input type="submit" value="next" id="nextBtn" />
             </div>

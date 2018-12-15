@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>개설 완료</title>
-</head>
-<body>
+{% extends 'header.html' %}
 
-    <p>강의가 정상적으로 개설되었습니다.</p>
-    <input type="button" id="prev" value="돌아가기" onclick="location.href='/sugang/'">
-</body>
-</html>
+{% block content %}
+{% load static %}
+<link rel="stylesheet"href="{% static 'css/sugang.css' %}"/>
+
+<div class="Thanks">
+    <div class="centering text-center">
+
+        <p>강의가 정상적으로 개설되었습니다.</p><br>
+    <input type="button" class="btn Sbtn" id="prev" value="돌아가기" onclick="location.href='/sugang/'">
+    </div>
+</div>
+
+{% endblock %}
