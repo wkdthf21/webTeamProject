@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^my-vocabulary/$', views.my_vocabulary, name='my_vocabulary'),
     url(r'^my-vocabulary/add-new/$', views.add_new_voca, name='add_new_voca'),
     url(r'^my-vocabulary/delete$', views.word_delete, name='word_delete'),
+    url(r'^my-vocabulary/add-new/translate/$', views.translate, name='translate'),
     #path('^my-vocabulary/delete/<spell>/$', views.word_delete, name="word_delete"),
 ]
